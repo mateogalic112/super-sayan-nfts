@@ -1,0 +1,24 @@
+{
+  "name": "super-sayan-nfts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mateogalic112/super-sayan-nfts.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mateogalic112/super-sayan-nfts/issues"
+  },
+  "homepage": "https://github.com/mateogalic112/super-sayan-nfts#readme",
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.8.1",
+    "truffle": "^5.7.7"
+  }
+}
