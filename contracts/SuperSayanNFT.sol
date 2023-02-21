@@ -8,6 +8,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract SuperSayanNFT is ERC721, ERC721Burnable, Ownable {
     string public baseUri;
 
+    mapping(address => uint256[]) myNfts;
     uint256 public constant TOKEN_MAX_SUPPLY = 7000;
     uint256 public tokenIds;
 
@@ -19,14 +20,19 @@ contract SuperSayanNFT is ERC721, ERC721Burnable, Ownable {
 
     function mint() external payable {
         require(tokenIds < TOKEN_MAX_SUPPLY, "Exceed maximum supply");
-        require(msg.value >= tokenPrice, "Not enough value");
+        require(msg.value >= tokenPrice, "Not enough tokens sent");
         tokenIds += 1;
+        myNfts[msg.sender].push(tokenIds);
         _safeMint(msg.sender, tokenIds);
     }
 
     function withdrawFunds() external onlyOwner {
         address _owner = owner();
         payable(_owner).transfer(address(this).balance);
+    }
+
+    function fetchMyNfts() external view returns (uint256[] memory) {
+        return myNfts[msg.sender];
     }
 
     // Function to receive Ether. msg.data must be empty

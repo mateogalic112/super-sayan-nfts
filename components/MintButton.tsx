@@ -8,7 +8,7 @@ const MintButton = () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const contract = new ethers.Contract(
-      "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+      "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
       SuperSayan.abi,
       signer
     );

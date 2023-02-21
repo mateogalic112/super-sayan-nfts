@@ -1,6 +1,7 @@
 import { ethers } from "ethers";
 import SuperSayan from "../artifacts/contracts/SuperSayanNFT.sol/SuperSayanNFT.json";
 import MintButton from "../components/MintButton";
+import NftContainer from "../components/NftContainer";
 
 declare global {
   interface Window {
@@ -13,6 +14,7 @@ function HomePage() {
     <div>
       <h1>Welcome to Next.js!</h1>
       <MintButton />
+      <NftContainer />
     </div>
   );
 }
