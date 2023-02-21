@@ -19,6 +19,7 @@ contract SuperSayanNFT is ERC721, ERC721Burnable, Ownable {
 
     function mint() external payable {
         require(tokenIds < TOKEN_MAX_SUPPLY, "Exceed maximum supply");
+        require(msg.value >= tokenPrice, "Not enough value");
         tokenIds += 1;
         _safeMint(msg.sender, tokenIds);
     }
