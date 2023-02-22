@@ -13,15 +13,19 @@ const NftContainer = () => {
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const signer = provider.getSigner();
         const contract = new ethers.Contract(
-          "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+          "0x5FbDB2315678afecb367f032d93F642f64180aa3",
           SuperSayan.abi,
           signer
         );
+        console.log({ contract: (await contract.tokenIds()).toNumber() });
+
         setNtfs(await contract.fetchMyNfts());
       }
     }
     fetchNfts();
   }, []);
+
+  console.log({ nfts });
 
   return (
     <div>

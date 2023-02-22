@@ -13,6 +13,12 @@ async function main() {
   await superSayanNFTDeploy.deployed();
 
   console.log(`SuperSayan deployed to ${superSayanNFTDeploy.address}`);
+
+  const Market = await ethers.getContractFactory("Market");
+  const marketDeploy = await Market.deploy();
+  await marketDeploy.deployed();
+
+  console.log(`Market deployed to ${marketDeploy.address}`);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
