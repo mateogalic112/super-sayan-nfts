@@ -14,6 +14,8 @@ contract SuperSayanNFT is ERC721, ERC721Burnable, Ownable {
 
     uint88 public tokenPrice = 0.05 ether;
 
+    event Mint(address to, uint256 tokenId);
+
     constructor(string memory _baseUri) ERC721("SuperSayanNFT", "SSY") {
         baseUri = _baseUri;
     }
@@ -22,6 +24,7 @@ contract SuperSayanNFT is ERC721, ERC721Burnable, Ownable {
         require(tokenIds < TOKEN_MAX_SUPPLY, "Exceed maximum supply");
         require(msg.value >= tokenPrice, "Not enough tokens sent");
         tokenIds += 1;
+        emit Mint(msg.sender, tokenIds);
         myNfts[msg.sender].push(tokenIds);
         _safeMint(msg.sender, tokenIds);
     }

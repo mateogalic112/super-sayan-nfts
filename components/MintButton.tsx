@@ -15,11 +15,11 @@ const MintButton = () => {
 
     mintToken = async () => {
       try {
-        const result = await contract.mint({
+        const tx = await contract.mint({
           value: ethers.utils.parseEther("0.05"),
         });
 
-        await result.wait();
+        await tx.wait();
       } catch (err) {
         console.log({ err });
       }

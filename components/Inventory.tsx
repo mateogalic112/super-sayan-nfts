@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Marekt from "../artifacts/contracts/Market.sol/Market.json";
 
 const Inventory = () => {
+  const [item, setItem] = useState<any>(null);
   useEffect(() => {
     async function fetchItems() {
       if (typeof window !== "undefined") {
@@ -22,14 +23,27 @@ const Inventory = () => {
         const itemMetadataResponse = await fetch(await contract.uri(1));
         const itemMetadata = await itemMetadataResponse.json();
         console.log({ itemMetadata });
+        setItem(itemMetadata);
       }
     }
     fetchItems();
   }, []);
 
+  if (!item) return null;
+
+  const imagePath = () => {
+    const basePath = "https://nftstorage.link/ipfs";
+    const imagePath = item.image.split("//")[1];
+    return `${basePath}/${imagePath}`;
+  };
+
   return (
     <div>
-      <ul></ul>
+      <ul>
+        <li>
+          <img src={imagePath()} width={200} height={100} />
+        </li>
+      </ul>
     </div>
   );
 };
