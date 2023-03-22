@@ -18,7 +18,12 @@ const NftContainer = () => {
           signer
         );
 
-        setNtfs(await contract.fetchMyNfts());
+        try {
+          const nftsToSet = await contract.fetchMyNfts();
+          setNtfs(nftsToSet);
+        } catch (err) {
+          console.log({ err });
+        }
       }
     }
     fetchNfts();
@@ -30,7 +35,7 @@ const NftContainer = () => {
     <div>
       <ul>
         {nfts.map((nft) => (
-          <li>
+          <li key={nft.toNumber()}>
             <NftCard tokenId={nft.toNumber()} />
           </li>
         ))}
