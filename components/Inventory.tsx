@@ -1,6 +1,7 @@
 "use-client";
 import { ethers } from "ethers";
 import { useEffect, useState } from "react";
+import web3Constants from "../constants/web3";
 import Marekt from "../artifacts/contracts/Market.sol/Market.json";
 
 const Inventory = () => {
@@ -12,7 +13,7 @@ const Inventory = () => {
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const signer = provider.getSigner();
         const contract = new ethers.Contract(
-          "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+          web3Constants.MARKET_CONTRACT_ADDRESS,
           Marekt.abi,
           signer
         );
