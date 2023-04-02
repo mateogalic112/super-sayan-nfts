@@ -7,7 +7,7 @@ async function main() {
   const whitelistContract = await ethers.getContractFactory("Whitelist");
   const whitelistContractDeploy = await whitelistContract.deploy(10);
   await whitelistContractDeploy.deployed();
-  console.log(`SuperSayan deployed to ${whitelistContractDeploy.address}`);
+  console.log(`Whitelist deployed to ${whitelistContractDeploy.address}`);
 
   const baseUri =
     "ipfs://bafybeibeppt6l46borcfoinfzhavjjsvew7upenttai75yvmfxl3hmp7oy";
