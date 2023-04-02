@@ -1,4 +1,6 @@
 import Head from "next/head";
+import WhitelistButton from "../components/WhitelistButton";
+import WhitelistContainer from "../components/WhitelistContainer";
 
 export default function Whitelist() {
   return (
@@ -10,6 +12,8 @@ export default function Whitelist() {
       </Head>
       <main>
         <h1>Whitelist Dapp</h1>
+        <WhitelistContainer />
+        <WhitelistButton />
       </main>
     </div>
   );

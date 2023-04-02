@@ -23,7 +23,8 @@ contract Whitelist {
         addAddressToWhitelist - This function adds the address of the sender to the
         whitelist
      */
-    function addAddressToWhitelist() public {
+    function addAddressToWhitelist() public payable {
+        require (msg.value >= 1 ether, "Not enough funds sent!");
         // check if the user has already been whitelisted
         require(!whitelistedAddresses[msg.sender], "Already whitelisted");
         // check if the numAddressesWhitelisted < maxWhitelistedAddresses, if not then throw an error.
@@ -33,5 +34,11 @@ contract Whitelist {
         // Increase the number of whitelisted addresses
         numAddressesWhitelisted += 1;
     }
+
+    // Function to receive Ether. msg.data must be empty
+    receive() external payable {}
+
+    // Fallback function is called when msg.data is not empty
+    fallback() external payable {}
 
 }
