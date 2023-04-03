@@ -3,4 +3,7 @@ module.exports = {
   images: {
     domains: ["nftstorage.link"],
   },
+  experimental: {
+    appDir: true,
+  },
 };

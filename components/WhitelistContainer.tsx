@@ -2,6 +2,7 @@ import { ethers } from "ethers";
 import { useEffect, useState } from "react";
 import web3Constants from "../constants/web3";
 import Whitelist from "../artifacts/contracts/Whitelist.sol/Whitelist.json";
+import { useWeb3Context } from "../context";
 
 const WhitelistContainer = () => {
   // joinedWhitelist keeps track of whether the current metamask address has joined the Whitelist or not
@@ -11,6 +12,9 @@ const WhitelistContainer = () => {
   // numberOfWhitelisted tracks the number of addresses's whitelisted
   const [numberOfWhitelisted, setNumberOfWhitelisted] = useState(0);
   const [maxNumberOfWhitelisted, setMaxNumberOfWhitelisted] = useState(0);
+
+  const { signer, connect } = useWeb3Context();
+  console.log({ signer });
 
   useEffect(() => {
     async function hasJoinedWhitelist() {
