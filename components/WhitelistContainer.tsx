@@ -14,13 +14,10 @@ const WhitelistContainer = () => {
   const [maxNumberOfWhitelisted, setMaxNumberOfWhitelisted] = useState(0);
 
   const { signer, connect } = useWeb3Context();
-  console.log({ signer });
 
   useEffect(() => {
     async function hasJoinedWhitelist() {
-      if (typeof window !== "undefined") {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const signer = provider.getSigner();
+      if (signer) {
         const contract = new ethers.Contract(
           web3Constants.WHITELIST_CONTRACT_ADDRESS,
           Whitelist.abi,
@@ -43,11 +40,11 @@ const WhitelistContainer = () => {
       }
     }
     hasJoinedWhitelist();
-  }, []);
+  }, [signer]);
 
   return (
     <div>
-      <p>Joined? {joinedWhitelist.toString()}</p>
+      <p>{joinedWhitelist ? "You are on whitelist! 🤘" : "Join"}</p>
       <p>Num of whitelisted: {numberOfWhitelisted}</p>
       <p>Max Num of whitelisted: {maxNumberOfWhitelisted}</p>
     </div>

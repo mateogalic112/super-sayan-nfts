@@ -1,12 +1,13 @@
 import { ethers } from "ethers";
 import web3Constants from "../constants/web3";
 import Whitelist from "../artifacts/contracts/Whitelist.sol/Whitelist.json";
+import { useWeb3Context } from "../context";
 
 const WhitelistButton = () => {
+  const { signer } = useWeb3Context();
+
   let joinWhitelist;
-  if (typeof window !== "undefined") {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
+  if (signer) {
     const contract = new ethers.Contract(
       web3Constants.WHITELIST_CONTRACT_ADDRESS,
       Whitelist.abi,
