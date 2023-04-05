@@ -10,13 +10,11 @@ import {
 
 interface IWeb3Context {
   signer: ethers.providers.JsonRpcSigner | null;
-
   connect: () => void;
 }
 
 const initialContext: IWeb3Context = {
   signer: null,
-
   connect: () => {},
 };
 

@@ -1,0 +1,20 @@
+.weaponList {
+  display: flex;
+  flex-direction: column;
+
+  .weaponItem {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+
+  .weaponAttributes {
+    display: flex;
+    gap: 8px;
+
+    .attribute {
+      display: flex;
+      gap: 4px;
+    }
+  }
+}
