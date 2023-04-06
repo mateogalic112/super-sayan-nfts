@@ -13,7 +13,10 @@ async function main() {
     "ipfs://bafybeibeppt6l46borcfoinfzhavjjsvew7upenttai75yvmfxl3hmp7oy";
 
   const SuperSayanNFT = await ethers.getContractFactory("SuperSayanNFT");
-  const superSayanNFTDeploy = await SuperSayanNFT.deploy(baseUri);
+  const superSayanNFTDeploy = await SuperSayanNFT.deploy(
+    baseUri,
+    whitelistContractDeploy.address
+  );
   await superSayanNFTDeploy.deployed();
   console.log(`SuperSayan deployed to ${superSayanNFTDeploy.address}`);
 
