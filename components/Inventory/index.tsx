@@ -9,14 +9,14 @@ const Inventory = () => {
   return (
     <ul className={classes.weaponList}>
       {weapons.map((weapon) => (
-        <li className={classes.weaponItem}>
+        <li className={classes.weaponItem} key={weapon.name}>
           <div>
             <p>{weapon.name}</p>
             <img src={weapon.image} width={100} height={100} />
           </div>
           <ul className={classes.weaponAttributes}>
-            {weapon.attributes.map((attribute) => (
-              <li className={classes.attribute}>
+            {weapon.attributes.map((attribute, idx) => (
+              <li className={classes.attribute} key={idx}>
                 <p>{attribute.trait_type}</p>
                 <p>{attribute.value}</p>
               </li>
