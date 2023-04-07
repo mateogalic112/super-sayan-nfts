@@ -20,6 +20,10 @@ export default function RootLayout({ children }: Props) {
 
   return (
     <html>
+      <head>
+        <title>SuperSayan NFT</title>
+        <link rel="logo" href="/favicon.ico" />
+      </head>
       <body>
         <QueryClientProvider client={queryClient}>
           <Web3Provider>
