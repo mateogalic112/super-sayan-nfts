@@ -89,13 +89,15 @@ const MintPage = () => {
     return date.toISOString().substring(11, 19);
   };
 
+  const activePresale = (presaleTimeLeft?.toNumber() ?? 0) > 0;
+
   const renderButton = () => {
     switch (true) {
       case !presaleStarted && isOwner:
         return <button onClick={() => startPresale()}>Start presale!</button>;
       case !presaleStarted:
         return <div>Presale hasn&#39;t started!</div>;
-      case presaleStarted && (presaleTimeLeft?.toNumber() ?? 0) > 0:
+      case presaleStarted && activePresale:
         return (
           <div>
             <div>
@@ -118,8 +120,7 @@ const MintPage = () => {
 
       <h6>{tokenIdsMinted.toString()}</h6>
 
-      <h6>Ends in: {presaleEndsIn?.toNumber()}</h6>
-      <h6>Time left: {formatTimeLeft()}</h6>
+      {activePresale && <h6>Time left: {formatTimeLeft()}</h6>}
 
       {renderButton()}
     </div>

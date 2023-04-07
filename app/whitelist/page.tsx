@@ -10,7 +10,7 @@ export default function Whitelist() {
       <h1>Whitelist Dapp</h1>
       <WhitelistContainer />
       <WhitelistButton />
-      <Link href="/">Mint Page</Link>
+      <Link href="/mint">Mint Page</Link>
     </main>
   );
 }
