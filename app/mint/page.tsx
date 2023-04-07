@@ -4,6 +4,7 @@ import { BigNumber } from "ethers";
 import { useEffect, useState } from "react";
 import useCheckPresaleEndsIn from "../../hooks/useCheckPresaleEndsIn";
 import useCheckPresaleStarted from "../../hooks/useCheckPresaleStarted";
+import useGetNftContractBalance from "../../hooks/useGetNftContractBalance";
 import useCheckOwner from "../../hooks/useGetOwner";
 import usePresaleMint from "../../hooks/usePresaleMint";
 import usePublicMint from "../../hooks/usePublicMint";
@@ -17,10 +18,8 @@ const MintPage = () => {
     null
   );
   const [isOwner, setIsOwner] = useState(false);
-  // tokenIdsMinted keeps track of the number of tokenIds that have been minted
-  const [tokenIdsMinted, setTokenIdsMinted] = useState<BigNumber>(
-    BigNumber.from(0)
-  );
+  const [balance, setBalance] = useState(BigNumber.from(0));
+  const [tokenIdsMinted, setTokenIdsMinted] = useState(BigNumber.from(0));
 
   const { isLoading: isLoadingPresaleMint, presaleMint } = usePresaleMint();
   const { isLoading: isLoadingPublicMint, publicMint } = usePublicMint();
@@ -29,6 +28,14 @@ const MintPage = () => {
   const { checkPresaleStarted } = useCheckPresaleStarted();
   const { getPresaleEndsIn } = useCheckPresaleEndsIn();
   const { getTokenIdsMinted } = useTokenIdsMinted();
+  const { getContractBalance } = useGetNftContractBalance();
+
+  useEffect(() => {
+    (async function checkOnwer() {
+      const _balance = await getContractBalance();
+      setBalance(_balance);
+    })();
+  }, []);
 
   useEffect(() => {
     (async function checkOnwer() {
@@ -123,6 +130,8 @@ const MintPage = () => {
       {activePresale && <h6>Time left: {formatTimeLeft()}</h6>}
 
       {renderButton()}
+
+      <h4>Contract balance: {balance.toString()}</h4>
     </div>
   );
 };

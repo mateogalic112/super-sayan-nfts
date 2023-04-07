@@ -68,6 +68,10 @@ contract SuperSayanNFT is ERC721, ERC721Burnable, Ownable {
         require(sent, "Withdraw failed");
     }
 
+    function currentContractBalance() public view returns (uint) {
+        return address(this).balance;
+    }
+
     function fetchMyNfts() external view returns (uint256[] memory) {
         return myNfts[msg.sender];
     }
