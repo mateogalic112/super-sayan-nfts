@@ -95,7 +95,7 @@ const MintPage = () => {
         return <button onClick={() => startPresale()}>Start presale!</button>;
       case !presaleStarted:
         return <div>Presale hasn&#39;t started!</div>;
-      case presaleStarted && (presaleEndsIn?.toNumber() ?? 0) > 0:
+      case presaleStarted && (presaleTimeLeft?.toNumber() ?? 0) > 0:
         return (
           <div>
             <div>
@@ -105,8 +105,8 @@ const MintPage = () => {
             <button onClick={() => presaleMint()}>Presale mint!</button>;
           </div>
         );
-      case presaleStarted && presaleEndsIn?.toNumber() === 0:
-        return <button onClick={() => presaleMint()}>Postsale mint!</button>;
+      case presaleStarted && presaleTimeLeft?.toNumber() === 0:
+        return <button onClick={() => publicMint()}>Postsale mint!</button>;
       default:
         return null;
     }
