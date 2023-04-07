@@ -11,12 +11,13 @@ contract SuperSayanNFT is ERC721, ERC721Burnable, Ownable {
 
     uint256 public constant TOKEN_MAX_SUPPLY = 7000;
     uint256 public tokenIds;
+    uint88 public presaleTokenPrice = 0.025 ether;
     uint88 public tokenPrice = 0.05 ether;
     mapping(address => uint256[]) myNfts;
 
     bool public _paused;
     bool public presaleStarted;
-    uint256 public presaleEnded;
+    uint256 public presaleEndsIn;
 
     modifier onlyWhenNotPaused {
         require(!_paused, "Contract paused");
@@ -34,14 +35,14 @@ contract SuperSayanNFT is ERC721, ERC721Burnable, Ownable {
 
     function startPresale() external onlyOwner {
         presaleStarted = true;
-        presaleEnded = block.timestamp + 5 minutes;
+        presaleEndsIn = block.timestamp + 45 minutes;
     }
 
      function presaleMint() external payable onlyWhenNotPaused {
-        require(presaleStarted && block.timestamp < presaleEnded, "Presale finished");
+        require(presaleStarted && block.timestamp < presaleEndsIn, "Presale finished");
         require(whitelist.whitelistedAddresses(msg.sender), "Not whitelisted");
         require(tokenIds < TOKEN_MAX_SUPPLY, "No tokens left");
-        require(msg.value >= tokenPrice, "Insufficient funds");
+        require(msg.value >= presaleTokenPrice, "Insufficient funds");
 
         tokenIds += 1;
         myNfts[msg.sender].push(tokenIds);
@@ -50,7 +51,7 @@ contract SuperSayanNFT is ERC721, ERC721Burnable, Ownable {
     }
 
     function mint() external payable {
-        require(presaleStarted && block.timestamp >= presaleEnded, "Active presale");
+        require(presaleStarted && block.timestamp >= presaleEndsIn, "Active presale");
         require(tokenIds < TOKEN_MAX_SUPPLY, "Exceed maximum supply");
         require(msg.value >= tokenPrice, "Not enough tokens sent");
         

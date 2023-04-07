@@ -13,7 +13,7 @@ const WhitelistContainer = () => {
   const [numberOfWhitelisted, setNumberOfWhitelisted] = useState(0);
   const [maxNumberOfWhitelisted, setMaxNumberOfWhitelisted] = useState(0);
 
-  const { signer, connect } = useWeb3Context();
+  const { signer } = useWeb3Context();
 
   useEffect(() => {
     async function hasJoinedWhitelist() {
