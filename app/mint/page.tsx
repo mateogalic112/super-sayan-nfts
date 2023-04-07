@@ -11,15 +11,16 @@ import useStartPresale from "../../hooks/useStartPresale";
 import useTokenIdsMinted from "../../hooks/useTokenIdsMinted";
 
 const MintPage = () => {
-  // presaleStarted keeps track of whether the presale has started or not
   const [presaleStarted, setPresaleStarted] = useState(false);
-  // presaleEnds in keeps track of time when sale ends
   const [presaleEndsIn, setPresaleEndsIn] = useState<BigNumber | null>(null);
   const [presaleTimeLeft, setPresaleTimeLeft] = useState<BigNumber | null>(
     null
   );
+  const [isOwner, setIsOwner] = useState(false);
   // tokenIdsMinted keeps track of the number of tokenIds that have been minted
-  const [tokenIdsMinted, setTokenIdsMinted] = useState("0");
+  const [tokenIdsMinted, setTokenIdsMinted] = useState<BigNumber>(
+    BigNumber.from(0)
+  );
 
   const { isLoading: isLoadingPresaleMint, presaleMint } = usePresaleMint();
   const { isLoading: isLoadingPublicMint, publicMint } = usePublicMint();
@@ -28,6 +29,13 @@ const MintPage = () => {
   const { checkPresaleStarted } = useCheckPresaleStarted();
   const { getPresaleEndsIn } = useCheckPresaleEndsIn();
   const { getTokenIdsMinted } = useTokenIdsMinted();
+
+  useEffect(() => {
+    (async function checkOnwer() {
+      const _owner = await checkIsOwner();
+      setIsOwner(_owner);
+    })();
+  }, []);
 
   useEffect(() => {
     (async function checkPresale() {
@@ -61,6 +69,11 @@ const MintPage = () => {
   }, [presaleStarted, presaleEndsIn]);
 
   useEffect(() => {
+    (async function () {
+      const mintedTokens = await getTokenIdsMinted();
+      setTokenIdsMinted(mintedTokens);
+    })();
+
     const tokenInterval = setInterval(async function () {
       const mintedTokens = await getTokenIdsMinted();
       setTokenIdsMinted(mintedTokens);
@@ -76,20 +89,39 @@ const MintPage = () => {
     return date.toISOString().substring(11, 19);
   };
 
+  const renderButton = () => {
+    switch (true) {
+      case !presaleStarted && isOwner:
+        return <button onClick={() => startPresale()}>Start presale!</button>;
+      case !presaleStarted:
+        return <div>Presale hasn&#39;t started!</div>;
+      case presaleStarted && (presaleEndsIn?.toNumber() ?? 0) > 0:
+        return (
+          <div>
+            <div>
+              Presale has started!!! If your address is whitelisted, Mint a
+              Crypto Dev 🥳
+            </div>
+            <button onClick={() => presaleMint()}>Presale mint!</button>;
+          </div>
+        );
+      case presaleStarted && presaleEndsIn?.toNumber() === 0:
+        return <button onClick={() => presaleMint()}>Postsale mint!</button>;
+      default:
+        return null;
+    }
+  };
+
   return (
     <div>
       <h1>Mint page</h1>
-      {!presaleStarted && (
-        <button onClick={() => startPresale()}>Start presale!</button>
-      )}
-      {Boolean(presaleEndsIn?.toNumber() ?? 0) && (
-        <button onClick={() => presaleMint()}>Presale mint!</button>
-      )}
-      {presaleStarted && !Boolean(presaleEndsIn?.toNumber() ?? 0) && (
-        <button onClick={() => presaleMint()}>Postsale mint!</button>
-      )}
+
+      <h6>{tokenIdsMinted.toString()}</h6>
+
       <h6>Ends in: {presaleEndsIn?.toNumber()}</h6>
       <h6>Time left: {formatTimeLeft()}</h6>
+
+      {renderButton()}
     </div>
   );
 };

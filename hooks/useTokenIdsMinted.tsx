@@ -1,7 +1,7 @@
 import { useWeb3Context } from "../context";
 import SuperSayan from "../artifacts/contracts/SuperSayanNFT.sol/SuperSayanNFT.json";
 import web3Constants from "../constants/web3";
-import { ethers } from "ethers";
+import { BigNumber, ethers } from "ethers";
 
 const useTokenIdsMinted = () => {
   const { signer } = useWeb3Context();
@@ -18,7 +18,7 @@ const useTokenIdsMinted = () => {
       return _tokenIds;
     } catch (err) {
       console.error(err);
-      return 0;
+      return BigNumber.from(0);
     }
   };
 
