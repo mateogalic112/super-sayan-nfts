@@ -1,7 +1,8 @@
 "use client";
 
 import { BigNumber } from "ethers";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import PresaleInterval from "../../components/Minting/PresaleInterval";
 import useCheckOwner from "../../hooks/useCheckOwner";
 import useCheckPresaleEndsIn from "../../hooks/useCheckPresaleEndsIn";
 import useCheckPresaleStarted from "../../hooks/useCheckPresaleStarted";
@@ -12,43 +13,21 @@ import useStartPresale from "../../hooks/useStartPresale";
 import useTokenIdsMinted from "../../hooks/useTokenIdsMinted";
 
 const MintPage = () => {
-  const [presaleTimeLeft, setPresaleTimeLeft] = useState<BigNumber | null>(
-    null
-  );
-
   const presaleMint = usePresaleMint();
-  const { isLoading: isLoadingPublicMint, publicMint } = usePublicMint();
+  const publicMint = usePublicMint();
 
   const { data: isOwner } = useCheckOwner();
 
   const startPresale = useStartPresale();
+
   const { data: presaleStarted } = useCheckPresaleStarted();
   const { data: presaleEndsIn } = useCheckPresaleEndsIn(presaleStarted);
+  const [presaleTimeLeft, setPresaleTimeLeft] = useState<BigNumber | null>(
+    null
+  );
 
   const { data: tokenIdsMinted } = useTokenIdsMinted();
   const { data: balance } = useGetNftContractBalance(isOwner);
-
-  useEffect(() => {
-    const presaleInterval = setInterval(async function () {
-      if (presaleStarted && presaleEndsIn) {
-        const hasEnded = presaleEndsIn.lt(Math.floor(Date.now() / 1000));
-        if (!hasEnded) {
-          setPresaleTimeLeft(presaleEndsIn.sub(Math.floor(Date.now() / 1000)));
-        } else {
-          setPresaleTimeLeft(BigNumber.from(0));
-        }
-      }
-    }, 1000);
-
-    return () => clearInterval(presaleInterval);
-  }, [presaleStarted, presaleEndsIn]);
-
-  const formatTimeLeft = () => {
-    const seconds = presaleTimeLeft?.toNumber() ?? 0;
-    const date = new Date(0);
-    date.setSeconds(seconds);
-    return date.toISOString().substring(11, 19);
-  };
 
   const activePresale = (presaleTimeLeft?.toNumber() ?? 0) > 0;
 
@@ -75,7 +54,11 @@ const MintPage = () => {
           </div>
         );
       case presaleStarted && presaleTimeLeft?.toNumber() === 0:
-        return <button onClick={() => publicMint()}>Postsale mint!</button>;
+        return (
+          <button onClick={() => publicMint.mutateAsync()}>
+            Postsale mint!
+          </button>
+        );
       default:
         return null;
     }
@@ -87,7 +70,12 @@ const MintPage = () => {
 
       <h6>{tokenIdsMinted?.toString()}</h6>
 
-      {activePresale && <h6>Time left: {formatTimeLeft()}</h6>}
+      <PresaleInterval
+        presaleStarted={presaleStarted}
+        presaleEndsIn={presaleEndsIn}
+        presaleTimeLeft={presaleTimeLeft}
+        setPresaleTimeLeft={setPresaleTimeLeft}
+      />
 
       {renderButton()}
 
