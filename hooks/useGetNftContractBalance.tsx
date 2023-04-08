@@ -1,19 +1,15 @@
 import { useWeb3Context } from "../context";
-import SuperSayan from "../artifacts/contracts/SuperSayanNFT.sol/SuperSayanNFT.json";
-import web3Constants from "../constants/web3";
 import { BigNumber, ethers } from "ethers";
+import { getNftContract } from "../services/contracts/getNftContract";
+import { useQuery } from "react-query";
 
-const useGetNftContractBalance = () => {
+const useGetNftContractBalance = (isOwner: boolean | undefined) => {
   const { signer } = useWeb3Context();
   const safeSigner = signer as ethers.providers.JsonRpcSigner;
 
   const getContractBalance = async () => {
     try {
-      const nftContract = new ethers.Contract(
-        web3Constants.SUPERSAYAN_CONTRACT_ADDRESS,
-        SuperSayan.abi,
-        safeSigner
-      );
+      const nftContract = getNftContract(safeSigner);
       const balance = await nftContract.currentContractBalance();
       return balance;
     } catch (err) {
@@ -22,7 +18,9 @@ const useGetNftContractBalance = () => {
     }
   };
 
-  return { getContractBalance };
+  return useQuery(["contract-balance"], getContractBalance, {
+    enabled: Boolean(isOwner),
+  });
 };
 
 export default useGetNftContractBalance;

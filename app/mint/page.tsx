@@ -2,6 +2,7 @@
 
 import { BigNumber } from "ethers";
 import { useEffect, useState } from "react";
+import useCheckOwner from "../../hooks/useCheckOwner";
 import useCheckPresaleEndsIn from "../../hooks/useCheckPresaleEndsIn";
 import useCheckPresaleStarted from "../../hooks/useCheckPresaleStarted";
 import useGetNftContractBalance from "../../hooks/useGetNftContractBalance";
@@ -11,42 +12,25 @@ import useStartPresale from "../../hooks/useStartPresale";
 import useTokenIdsMinted from "../../hooks/useTokenIdsMinted";
 
 const MintPage = () => {
-  const [presaleEndsIn, setPresaleEndsIn] = useState<BigNumber | null>(null);
   const [presaleTimeLeft, setPresaleTimeLeft] = useState<BigNumber | null>(
     null
   );
 
-  const [isOwner, setIsOwner] = useState(false);
-  const [balance, setBalance] = useState(BigNumber.from(0));
-  const [tokenIdsMinted, setTokenIdsMinted] = useState(BigNumber.from(0));
-
-  const { isLoading: isLoadingPresaleMint, presaleMint } = usePresaleMint();
+  const presaleMint = usePresaleMint();
   const { isLoading: isLoadingPublicMint, publicMint } = usePublicMint();
+
+  const { data: isOwner } = useCheckOwner();
+
   const startPresale = useStartPresale();
   const { data: presaleStarted } = useCheckPresaleStarted();
-  const { getPresaleEndsIn } = useCheckPresaleEndsIn();
-  const { getTokenIdsMinted } = useTokenIdsMinted();
-  const { getContractBalance } = useGetNftContractBalance();
+  const { data: presaleEndsIn } = useCheckPresaleEndsIn(presaleStarted);
 
-  useEffect(() => {
-    (async function initialState() {
-      const _balance = await getContractBalance();
-      setBalance(_balance);
-    })();
-  }, []);
-
-  useEffect(() => {
-    (async function checkEndsIn() {
-      if (presaleStarted) {
-        const _presaleEndsIn = await getPresaleEndsIn();
-        setPresaleEndsIn(_presaleEndsIn);
-      }
-    })();
-  }, [presaleStarted]);
+  const { data: tokenIdsMinted } = useTokenIdsMinted();
+  const { data: balance } = useGetNftContractBalance(isOwner);
 
   useEffect(() => {
     const presaleInterval = setInterval(async function () {
-      if (presaleStarted && presaleEndsIn !== null) {
+      if (presaleStarted && presaleEndsIn) {
         const hasEnded = presaleEndsIn.lt(Math.floor(Date.now() / 1000));
         if (!hasEnded) {
           setPresaleTimeLeft(presaleEndsIn.sub(Math.floor(Date.now() / 1000)));
@@ -54,24 +38,10 @@ const MintPage = () => {
           setPresaleTimeLeft(BigNumber.from(0));
         }
       }
-    }, 1 * 1000);
+    }, 1000);
 
     return () => clearInterval(presaleInterval);
   }, [presaleStarted, presaleEndsIn]);
-
-  useEffect(() => {
-    (async function () {
-      const mintedTokens = await getTokenIdsMinted();
-      setTokenIdsMinted(mintedTokens);
-    })();
-
-    const tokenInterval = setInterval(async function () {
-      const mintedTokens = await getTokenIdsMinted();
-      setTokenIdsMinted(mintedTokens);
-    }, 5 * 1000);
-
-    return () => clearInterval(tokenInterval);
-  }, []);
 
   const formatTimeLeft = () => {
     const seconds = presaleTimeLeft?.toNumber() ?? 0;
@@ -99,7 +69,9 @@ const MintPage = () => {
               Presale has started!!! If your address is whitelisted, Mint a
               SuperSayan 🥳
             </div>
-            <button onClick={() => presaleMint()}>Presale mint!</button>
+            <button onClick={() => presaleMint.mutateAsync()}>
+              Presale mint!
+            </button>
           </div>
         );
       case presaleStarted && presaleTimeLeft?.toNumber() === 0:
@@ -113,13 +85,13 @@ const MintPage = () => {
     <div>
       <h1>Mint page</h1>
 
-      <h6>{tokenIdsMinted.toString()}</h6>
+      <h6>{tokenIdsMinted?.toString()}</h6>
 
       {activePresale && <h6>Time left: {formatTimeLeft()}</h6>}
 
       {renderButton()}
 
-      <h4>Contract balance: {balance.toString()}</h4>
+      <h4>Contract balance: {balance?.toString()}</h4>
     </div>
   );
 };

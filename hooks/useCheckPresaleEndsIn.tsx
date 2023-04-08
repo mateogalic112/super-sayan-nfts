@@ -1,27 +1,25 @@
 import { useWeb3Context } from "../context";
-import SuperSayan from "../artifacts/contracts/SuperSayanNFT.sol/SuperSayanNFT.json";
-import web3Constants from "../constants/web3";
 import { ethers } from "ethers";
+import { useQuery } from "react-query";
+import { getNftContract } from "../services/contracts/getNftContract";
 
-const useCheckPresaleEndsIn = () => {
+const useCheckPresaleEndsIn = (presaleStarted: unknown) => {
   const { signer } = useWeb3Context();
   const safeSigner = signer as ethers.providers.JsonRpcSigner;
 
   const getPresaleEndsIn = async () => {
     try {
-      const nftContract = new ethers.Contract(
-        web3Constants.SUPERSAYAN_CONTRACT_ADDRESS,
-        SuperSayan.abi,
-        safeSigner
-      );
-      const _presaleEndsIn = await nftContract.presaleEndsIn();
-      return _presaleEndsIn;
+      const nftContract = getNftContract(safeSigner);
+      const presaleEndsIn = await nftContract.presaleEndsIn();
+      return presaleEndsIn;
     } catch (err) {
       console.error(err);
     }
   };
 
-  return { getPresaleEndsIn };
+  return useQuery(["presale-ends-in"], getPresaleEndsIn, {
+    enabled: Boolean(presaleStarted),
+  });
 };
 
 export default useCheckPresaleEndsIn;

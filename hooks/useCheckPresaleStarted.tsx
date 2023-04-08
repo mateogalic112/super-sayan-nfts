@@ -7,7 +7,7 @@ const useCheckPresaleStarted = () => {
   const { signer } = useWeb3Context();
   const safeSigner = signer as ethers.providers.JsonRpcSigner;
 
-  const checkPresaleStarted = async () => {
+  const checkPresaleStarted = async (): Promise<boolean> => {
     try {
       const nftContract = getNftContract(safeSigner);
       const presaleStarted = await nftContract.presaleStarted();
@@ -18,7 +18,7 @@ const useCheckPresaleStarted = () => {
     }
   };
 
-  return useQuery(["check-presale-started", checkPresaleStarted]);
+  return useQuery(["check-presale-started"], checkPresaleStarted);
 };
 
 export default useCheckPresaleStarted;

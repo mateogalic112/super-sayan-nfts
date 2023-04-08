@@ -1,7 +1,7 @@
 import { useWeb3Context } from "../context";
-import SuperSayan from "../artifacts/contracts/SuperSayanNFT.sol/SuperSayanNFT.json";
-import web3Constants from "../constants/web3";
 import { BigNumber, ethers } from "ethers";
+import { getNftContract } from "../services/contracts/getNftContract";
+import { useQuery } from "react-query";
 
 const useTokenIdsMinted = () => {
   const { signer } = useWeb3Context();
@@ -9,20 +9,18 @@ const useTokenIdsMinted = () => {
 
   const getTokenIdsMinted = async () => {
     try {
-      const nftContract = new ethers.Contract(
-        web3Constants.SUPERSAYAN_CONTRACT_ADDRESS,
-        SuperSayan.abi,
-        safeSigner
-      );
-      const _tokenIds = await nftContract.tokenIds();
-      return _tokenIds;
+      const nftContract = getNftContract(safeSigner);
+      const tokenIds = await nftContract.tokenIds();
+      return tokenIds;
     } catch (err) {
       console.error(err);
       return BigNumber.from(0);
     }
   };
 
-  return { getTokenIdsMinted };
+  return useQuery(["token-ids-minted"], getTokenIdsMinted, {
+    refetchInterval: 5000,
+  });
 };
 
 export default useTokenIdsMinted;
