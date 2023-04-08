@@ -1,5 +1,5 @@
 import { BigNumber } from "ethers";
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect } from "react";
 
 interface Props {
   presaleStarted: boolean | undefined;
@@ -21,8 +21,6 @@ const PresaleInterval = ({
     return date.toISOString().substring(11, 19);
   };
 
-  console.log(formatTimeLeft());
-
   useEffect(() => {
     const presaleInterval = setInterval(async function () {
       if (presaleStarted && presaleEndsIn) {
@@ -38,7 +36,7 @@ const PresaleInterval = ({
     return () => clearInterval(presaleInterval);
   }, [presaleStarted, presaleEndsIn]);
 
-  if (!presaleTimeLeft) return null;
+  if (!presaleTimeLeft || presaleTimeLeft.toNumber() === 0) return null;
 
   return <h4>Time left: {formatTimeLeft()}</h4>;
 };
