@@ -40,7 +40,7 @@ const PresaleInterval = ({
 
   if (!presaleTimeLeft) return null;
 
-  return <h6>Time left: {formatTimeLeft()}</h6>;
+  return <h4>Time left: {formatTimeLeft()}</h4>;
 };
 
 export default PresaleInterval;

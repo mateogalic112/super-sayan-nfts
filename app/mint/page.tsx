@@ -68,7 +68,7 @@ const MintPage = () => {
     <div>
       <h1>Mint page</h1>
 
-      <h6>{tokenIdsMinted?.toString()}</h6>
+      <h4>Tokens minted: {tokenIdsMinted?.toString()}</h4>
 
       <PresaleInterval
         presaleStarted={presaleStarted}
@@ -79,7 +79,7 @@ const MintPage = () => {
 
       {renderButton()}
 
-      <h4>Contract balance: {balance?.toString()}</h4>
+      {isOwner && <h4>Contract balance: {balance?.toString()}</h4>}
     </div>
   );
 };
