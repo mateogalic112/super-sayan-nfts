@@ -1,8 +1,7 @@
 import { useWeb3Context } from "../context";
-import SuperSayan from "../artifacts/contracts/SuperSayanNFT.sol/SuperSayanNFT.json";
-import web3Constants from "../constants/web3";
 import { ethers } from "ethers";
-import { useState } from "react";
+import { useQuery } from "react-query";
+import { getNftContract } from "../services/contracts/getNftContract";
 
 const useCheckPresaleStarted = () => {
   const { signer } = useWeb3Context();
@@ -10,20 +9,16 @@ const useCheckPresaleStarted = () => {
 
   const checkPresaleStarted = async () => {
     try {
-      const nftContract = new ethers.Contract(
-        web3Constants.SUPERSAYAN_CONTRACT_ADDRESS,
-        SuperSayan.abi,
-        safeSigner
-      );
-      const _presaleStarted = await nftContract.presaleStarted();
-      return _presaleStarted;
+      const nftContract = getNftContract(safeSigner);
+      const presaleStarted = await nftContract.presaleStarted();
+      return presaleStarted;
     } catch (err) {
       console.error(err);
       return false;
     }
   };
 
-  return { checkPresaleStarted };
+  return useQuery(["check-presale-started", checkPresaleStarted]);
 };
 
 export default useCheckPresaleStarted;

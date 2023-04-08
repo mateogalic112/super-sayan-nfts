@@ -1,22 +1,17 @@
 import { useWeb3Context } from "../context";
-import SuperSayan from "../artifacts/contracts/SuperSayanNFT.sol/SuperSayanNFT.json";
-import web3Constants from "../constants/web3";
 import { ethers } from "ethers";
+import { useQuery } from "react-query";
+import { getNftContract } from "../services/contracts/getNftContract";
 
 const useCheckOwner = () => {
   const { signer } = useWeb3Context();
   const safeSigner = signer as ethers.providers.JsonRpcSigner;
 
-  const checkIsOwner = async () => {
+  const checkOwner = async () => {
     try {
-      const nftContract = new ethers.Contract(
-        web3Constants.SUPERSAYAN_CONTRACT_ADDRESS,
-        SuperSayan.abi,
-        safeSigner
-      );
+      const nftContract = getNftContract(safeSigner);
       const _owner = await nftContract.owner();
       const address = await safeSigner.getAddress();
-
       if (address.toLowerCase() === _owner.toLowerCase()) {
         return true;
       }
@@ -27,7 +22,7 @@ const useCheckOwner = () => {
     }
   };
 
-  return { checkIsOwner };
+  return useQuery(["check-owner"], checkOwner);
 };
 
 export default useCheckOwner;

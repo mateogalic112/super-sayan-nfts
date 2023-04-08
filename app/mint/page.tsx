@@ -5,49 +5,33 @@ import { useEffect, useState } from "react";
 import useCheckPresaleEndsIn from "../../hooks/useCheckPresaleEndsIn";
 import useCheckPresaleStarted from "../../hooks/useCheckPresaleStarted";
 import useGetNftContractBalance from "../../hooks/useGetNftContractBalance";
-import useCheckOwner from "../../hooks/useGetOwner";
 import usePresaleMint from "../../hooks/usePresaleMint";
 import usePublicMint from "../../hooks/usePublicMint";
 import useStartPresale from "../../hooks/useStartPresale";
 import useTokenIdsMinted from "../../hooks/useTokenIdsMinted";
 
 const MintPage = () => {
-  const [presaleStarted, setPresaleStarted] = useState(false);
   const [presaleEndsIn, setPresaleEndsIn] = useState<BigNumber | null>(null);
   const [presaleTimeLeft, setPresaleTimeLeft] = useState<BigNumber | null>(
     null
   );
+
   const [isOwner, setIsOwner] = useState(false);
   const [balance, setBalance] = useState(BigNumber.from(0));
   const [tokenIdsMinted, setTokenIdsMinted] = useState(BigNumber.from(0));
 
   const { isLoading: isLoadingPresaleMint, presaleMint } = usePresaleMint();
   const { isLoading: isLoadingPublicMint, publicMint } = usePublicMint();
-  const { isLoading: isLoadingStartPresale, startPresale } = useStartPresale();
-  const { checkIsOwner } = useCheckOwner();
-  const { checkPresaleStarted } = useCheckPresaleStarted();
+  const startPresale = useStartPresale();
+  const { data: presaleStarted } = useCheckPresaleStarted();
   const { getPresaleEndsIn } = useCheckPresaleEndsIn();
   const { getTokenIdsMinted } = useTokenIdsMinted();
   const { getContractBalance } = useGetNftContractBalance();
 
   useEffect(() => {
-    (async function checkOnwer() {
+    (async function initialState() {
       const _balance = await getContractBalance();
       setBalance(_balance);
-    })();
-  }, []);
-
-  useEffect(() => {
-    (async function checkOnwer() {
-      const _owner = await checkIsOwner();
-      setIsOwner(_owner);
-    })();
-  }, []);
-
-  useEffect(() => {
-    (async function checkPresale() {
-      const _presaleStarted = await checkPresaleStarted();
-      setPresaleStarted(_presaleStarted);
     })();
   }, []);
 
@@ -101,7 +85,11 @@ const MintPage = () => {
   const renderButton = () => {
     switch (true) {
       case !presaleStarted && isOwner:
-        return <button onClick={() => startPresale()}>Start presale!</button>;
+        return (
+          <button onClick={() => startPresale.mutateAsync()}>
+            Start presale!
+          </button>
+        );
       case !presaleStarted:
         return <div>Presale hasn&#39;t started!</div>;
       case presaleStarted && activePresale:
