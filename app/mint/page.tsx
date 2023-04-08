@@ -3,14 +3,14 @@
 import { BigNumber } from "ethers";
 import { useState } from "react";
 import PresaleInterval from "../../components/Minting/PresaleInterval";
-import useCheckOwner from "../../hooks/useCheckOwner";
-import useCheckPresaleEndsIn from "../../hooks/useCheckPresaleEndsIn";
-import useCheckPresaleStarted from "../../hooks/useCheckPresaleStarted";
-import useGetNftContractBalance from "../../hooks/useGetNftContractBalance";
-import usePresaleMint from "../../hooks/usePresaleMint";
-import usePublicMint from "../../hooks/usePublicMint";
-import useStartPresale from "../../hooks/useStartPresale";
-import useTokenIdsMinted from "../../hooks/useTokenIdsMinted";
+import useCheckOwner from "../../components/Minting/hooks/useCheckOwner";
+import useCheckPresaleEndsIn from "../../components/Minting/hooks/useCheckPresaleEndsIn";
+import useCheckPresaleStarted from "../../components/Minting/hooks/useCheckPresaleStarted";
+import useGetNftContractBalance from "../../components/Minting/hooks/useGetNftContractBalance";
+import usePresaleMint from "../../components/Minting/hooks/usePresaleMint";
+import usePublicMint from "../../components/Minting/hooks/usePublicMint";
+import useStartPresale from "../../components/Minting/hooks/useStartPresale";
+import useTokenIdsMinted from "../../components/Minting/hooks/useTokenIdsMinted";
 
 const MintPage = () => {
   const presaleMint = usePresaleMint();

@@ -1,6 +1,6 @@
-import { useWeb3Context } from "../context";
+import { useWeb3Context } from "../../../context";
 import { BigNumber, ethers } from "ethers";
-import { getNftContract } from "../services/contracts/getNftContract";
+import { getNftContract } from "../../../services/contracts/getNftContract";
 import { useQuery } from "react-query";
 
 const useTokenIdsMinted = () => {
