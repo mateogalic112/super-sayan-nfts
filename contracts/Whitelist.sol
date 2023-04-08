@@ -13,6 +13,8 @@ contract Whitelist {
     // NOTE: Don't change this variable name, as it will be part of verification
     uint8 public numAddressesWhitelisted;
 
+    event Join(address indexed _address);
+
     // Setting the Max number of whitelisted addresses
     // User will put the value at the time of deployment
     constructor(uint8 _maxWhitelistedAddresses) {
@@ -33,6 +35,8 @@ contract Whitelist {
         whitelistedAddresses[msg.sender] = true;
         // Increase the number of whitelisted addresses
         numAddressesWhitelisted += 1;
+        // emit join event
+        emit Join(msg.sender);
     }
 
     // Function to receive Ether. msg.data must be empty

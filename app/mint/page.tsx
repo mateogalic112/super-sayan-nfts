@@ -109,9 +109,9 @@ const MintPage = () => {
           <div>
             <div>
               Presale has started!!! If your address is whitelisted, Mint a
-              Crypto Dev 🥳
+              SuperSayan 🥳
             </div>
-            <button onClick={() => presaleMint()}>Presale mint!</button>;
+            <button onClick={() => presaleMint()}>Presale mint!</button>
           </div>
         );
       case presaleStarted && presaleTimeLeft?.toNumber() === 0:

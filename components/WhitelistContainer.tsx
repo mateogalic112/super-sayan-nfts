@@ -44,7 +44,7 @@ const WhitelistContainer = () => {
 
   return (
     <div>
-      <p>{joinedWhitelist ? "You are on whitelist! 🤘" : "Join"}</p>
+      <p>{joinedWhitelist ? "You are on whitelist! 🤘" : "Join whitelist"}</p>
       <p>Num of whitelisted: {numberOfWhitelisted}</p>
       <p>Max Num of whitelisted: {maxNumberOfWhitelisted}</p>
     </div>
