@@ -1,22 +1,18 @@
 import { useWeb3Context } from "../../../context";
-import Whitelist from "../../../artifacts/contracts/Whitelist.sol/Whitelist.json";
-import web3Constants from "../../../constants/web3";
 import { ethers } from "ethers";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
+import { getWhitelistContract } from "../../../services/contracts/getWhitelistContract";
 
 const useJoinWhitelist = () => {
   const { signer } = useWeb3Context();
   const safeSigner = signer as ethers.providers.JsonRpcSigner;
 
-  const contract = new ethers.Contract(
-    web3Constants.WHITELIST_CONTRACT_ADDRESS,
-    Whitelist.abi,
-    safeSigner
-  );
+  const queryClient = useQueryClient();
 
   const joinWhitelist = async () => {
+    const whitelistContract = getWhitelistContract(safeSigner);
     try {
-      const tx = await contract.addAddressToWhitelist({
+      const tx = await whitelistContract.addAddressToWhitelist({
         value: ethers.utils.parseEther("1"),
       });
 
@@ -26,7 +22,11 @@ const useJoinWhitelist = () => {
     }
   };
 
-  return useMutation(joinWhitelist);
+  return useMutation(joinWhitelist, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["num-addresses-whitelisted"]);
+    },
+  });
 };
 
 export default useJoinWhitelist;

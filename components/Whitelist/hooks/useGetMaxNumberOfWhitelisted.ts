@@ -8,7 +8,7 @@ const useGetMaxNumberOfWhitelisted = () => {
   const { signer } = useWeb3Context();
   const safeSigner = signer as ethers.providers.JsonRpcSigner;
 
-  const checkHasJoinedWhitelist = async () => {
+  const getMaxWhitelistedAddresses = async () => {
     try {
       const contract = new ethers.Contract(
         web3Constants.WHITELIST_CONTRACT_ADDRESS,
@@ -17,7 +17,6 @@ const useGetMaxNumberOfWhitelisted = () => {
       );
 
       const maxWhitelistedAddresses = await contract.maxWhitelistedAddresses();
-
       return maxWhitelistedAddresses;
     } catch (err) {
       console.error(err);
@@ -25,7 +24,7 @@ const useGetMaxNumberOfWhitelisted = () => {
     }
   };
 
-  return useQuery(["max-whitelisted-addresses"], checkHasJoinedWhitelist);
+  return useQuery(["max-whitelisted-addresses"], getMaxWhitelistedAddresses);
 };
 
 export default useGetMaxNumberOfWhitelisted;
