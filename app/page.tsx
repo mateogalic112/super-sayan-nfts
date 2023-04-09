@@ -8,8 +8,12 @@ import classes from "./index.module.scss";
 export default function Home() {
   return (
     <main className={classes.main}>
-      <Link href="/whitelist">Join Whitelist</Link>
-      <Link href="/mint">Mint Nfts!</Link>
+      <p>
+        <Link href="/whitelist">Join Whitelist</Link>
+      </p>
+      <p>
+        <Link href="/mint">Mint Nfts!</Link>
+      </p>
       <NftContainer />
       <Inventory />
     </main>
