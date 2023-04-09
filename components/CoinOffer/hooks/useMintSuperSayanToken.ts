@@ -19,7 +19,6 @@ const useMintSuperSayanToken = () => {
       const parsedTokenPrice = +utils.formatEther(tokenPrice).toString();
 
       const value = parsedTokenPrice * parsedAmount;
-
       const tx = await tokenContract.mint(parsedAmount, {
         value: utils.parseEther(value.toString()),
       });

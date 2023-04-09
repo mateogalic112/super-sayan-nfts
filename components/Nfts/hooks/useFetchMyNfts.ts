@@ -31,7 +31,9 @@ const useFetchMyNfts = () => {
     }
   };
 
-  return useQuery(["fetch-my-nfts"], fetchMyNfts, { enabled: !!safeSigner });
+  return useQuery(["fetch-my-nfts"], fetchMyNfts, {
+    enabled: !!safeSigner,
+  });
 };
 
 export default useFetchMyNfts;
