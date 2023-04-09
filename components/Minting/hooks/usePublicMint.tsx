@@ -1,9 +1,11 @@
 import { useWeb3Context } from "../../../context";
 import { ethers } from "ethers";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { getNftContract } from "../../../services/contracts/getNftContract";
 
 const usePublicMint = () => {
+  const queryClient = useQueryClient();
+
   const { signer } = useWeb3Context();
   const safeSigner = signer as ethers.providers.JsonRpcSigner;
 
@@ -20,7 +22,11 @@ const usePublicMint = () => {
     }
   };
 
-  return useMutation(publicMint);
+  return useMutation(publicMint, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["tokens-to-be-claimed"]);
+    },
+  });
 };
 
 export default usePublicMint;

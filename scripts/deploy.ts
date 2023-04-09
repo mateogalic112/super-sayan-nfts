@@ -24,6 +24,13 @@ async function main() {
   const marketDeploy = await Market.deploy();
   await marketDeploy.deployed();
   console.log(`Market deployed to ${marketDeploy.address}`);
+
+  const SuperSayanToken = await ethers.getContractFactory("SuperSayanToken");
+  const superSayanTokenDeploy = await SuperSayanToken.deploy(
+    superSayanNFTDeploy.address
+  );
+  await superSayanTokenDeploy.deployed();
+  console.log(`SuperSayanToken deployed to ${superSayanTokenDeploy.address}`);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

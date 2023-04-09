@@ -1,14 +1,13 @@
 import { useWeb3Context } from "../../../context";
 import { ethers } from "ethers";
-import { useState } from "react";
 import { getNftContract } from "../../../services/contracts/getNftContract";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 
 const usePresaleMint = () => {
+  const queryClient = useQueryClient();
+
   const { signer } = useWeb3Context();
   const safeSigner = signer as ethers.providers.JsonRpcSigner;
-
-  const [isLoading, setIsLoading] = useState(false);
 
   const presaleMint = async () => {
     try {
@@ -23,7 +22,11 @@ const usePresaleMint = () => {
     }
   };
 
-  return useMutation(presaleMint);
+  return useMutation(presaleMint, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["tokens-to-be-claimed"]);
+    },
+  });
 };
 
 export default usePresaleMint;

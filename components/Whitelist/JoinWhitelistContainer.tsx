@@ -13,6 +13,7 @@ const JoinWhitelistContainer = () => {
   return (
     <div>
       <Link href="/mint">Mint Page</Link>
+      <Link href="/initial-coin-offering">ICO</Link>
       <p>{joinedWhitelist ? "You are on whitelist! 🤘" : "Join whitelist"}</p>
       <p>Current Num of whitelisted: {numAddressesWhitelisted}</p>
       <p>Max Num of whitelisted: {maxNumberOfWhitelisted}</p>
