@@ -11,7 +11,6 @@ const useMintSuperSayanToken = () => {
 
   const mintSuperSayanToken = async (amount: string) => {
     const parsedAmount = +amount;
-    console.log({ parsedAmount });
 
     try {
       const tokenContract = getTokenContract(safeSigner);

@@ -19,8 +19,6 @@ const NftCard = ({ tokenId }: Props) => {
     fetchNft();
   }, [tokenId]);
 
-  console.log({ nft });
-
   if (!nft) return null;
 
   const imagePath = () => {
