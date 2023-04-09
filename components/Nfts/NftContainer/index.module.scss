@@ -1,0 +1,9 @@
+.nftList {
+  display: flex;
+  gap: 16px;
+  padding: 0;
+
+  .nftItem {
+    list-style: none;
+  }
+}

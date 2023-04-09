@@ -1,11 +1,12 @@
 export interface SuperSayan {
-  attributes: NftAttribute[];
+  attributes: [
+    { trait_type: "Base"; value: string },
+    { trait_type: "Personality"; value: string },
+    { trait_type: "Stamina"; value: number },
+    { trait_type: "Attack"; value: number },
+    { trait_type: "Defense"; value: number }
+  ];
   description: string;
   image: string;
   name: string;
-}
-
-interface NftAttribute {
-  trait_type: string;
-  value: string | number;
 }
