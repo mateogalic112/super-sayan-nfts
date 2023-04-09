@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Inventory from "../components/Inventory";
+import WeaponContainer from "../components/Inventory/WeaponContainer";
 import NftContainer from "../components/Nfts/NftContainer";
 import classes from "./index.module.scss";
 
@@ -15,7 +15,7 @@ export default function Home() {
         <Link href="/mint">Mint Nfts!</Link>
       </p>
       <NftContainer />
-      <Inventory />
+      <WeaponContainer />
     </main>
   );
 }
