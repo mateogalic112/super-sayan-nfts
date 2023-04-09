@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Inventory from "../components/Inventory";
-import NftContainer from "../components/NftContainer";
+import NftContainer from "../components/Nfts/NftContainer";
 import classes from "./index.module.scss";
 
 export default function Home() {
