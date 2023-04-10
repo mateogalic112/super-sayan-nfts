@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { Weapon } from "../../../models/Weapon";
 import useBalanceOf from "../hooks/useBalanceOf";
+import useMarketItemMetadata from "../hooks/useMarketItemMetadata";
 import useMintMarketItem from "../hooks/useMintMarketItem";
 import classes from "./index.module.scss";
 
@@ -12,6 +13,9 @@ interface Props {
 
 const WeaponCard = ({ weapon, tokenId }: Props) => {
   const { data: balance } = useBalanceOf(tokenId);
+  const { data: metadata } = useMarketItemMetadata(tokenId);
+  console.log({ metadata });
+
   const [amount, setAmount] = useState("0");
 
   const mintItem = useMintMarketItem();

@@ -13,9 +13,8 @@ interface Props {
 
 const NftCard = ({ tokenId }: Props) => {
   const nft = useFetchNft(tokenId);
-  const { data: attachedItems } = useGetAttachedItems(tokenId);
-  console.log({ attachedItems });
 
+  const { data: attachedItems } = useGetAttachedItems(tokenId);
   const attachSword = useAttachItemToSayan();
 
   if (!nft) return null;
@@ -51,6 +50,9 @@ const NftCard = ({ tokenId }: Props) => {
 
       <button onClick={() => attachSword.mutateAsync({ tokenId, weaponId: 1 })}>
         Attach sword
+      </button>
+      <button onClick={() => attachSword.mutateAsync({ tokenId, weaponId: 2 })}>
+        Attach shield
       </button>
     </div>
   );

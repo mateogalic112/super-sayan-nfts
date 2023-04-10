@@ -5,7 +5,7 @@ import Market from "../../../artifacts/contracts/Market.sol/Market.json";
 import { useQuery } from "react-query";
 import { Weapon } from "../../../models/Weapon";
 
-const MARKET_ITEMS = [1, 2];
+const MARKET_ITEMS = [1, 2, 3];
 
 const fetchInventoryItems = async (
   contract: ethers.Contract
