@@ -40,7 +40,8 @@ async function main() {
   // Game engine
   const GameEngine = await ethers.getContractFactory("GameEngine");
   const gameEngineDeploy = await upgrades.deployProxy(GameEngine, [
-    deployer.address,
+    marketDeploy.address,
+    superSayanNFTDeploy.address,
   ]);
   await gameEngineDeploy.deployed();
   console.log(`GameEngine deployed to ${gameEngineDeploy.address}`);

@@ -3,22 +3,25 @@ import { ethers } from "ethers";
 import { useQuery } from "react-query";
 import { getGameEngineContract } from "../../../services/contracts/getGameEngineContract";
 
-const useGetPrice = () => {
+const useGetAttachedItems = (tokenId: number) => {
   const { signer } = useWeb3Context();
   const safeSigner = signer as ethers.providers.JsonRpcSigner;
 
-  const getPrice = async () => {
+  const getAttachedItems = async () => {
     try {
       const gameEngineContract = getGameEngineContract(safeSigner);
-      const price = await gameEngineContract.retrievePrice();
-      return price;
+      console.log({ gameEngineContract });
+
+      const items = await gameEngineContract.getAttachedItemsToSayan(tokenId);
+      return items;
     } catch (err) {
       console.error(err);
-      return 0;
     }
   };
 
-  return useQuery(["get-price"], getPrice, { enabled: !!safeSigner });
+  return useQuery(["get-attached-items"], getAttachedItems, {
+    enabled: !!safeSigner && !!tokenId,
+  });
 };
 
-export default useGetPrice;
+export default useGetAttachedItems;

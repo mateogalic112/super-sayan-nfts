@@ -1,6 +1,8 @@
 "use-client";
 
 import Image from "next/image";
+import useAttachItemToSayan from "../../GameEngine/hooks/useAttachItemToSayan";
+import useGetAttachedItems from "../../GameEngine/hooks/useGetAttachedItems";
 import useFetchNft from "../hooks/useFetchNft";
 import classes from "./index.module.scss";
 
@@ -10,7 +12,10 @@ interface Props {
 
 const NftCard = ({ tokenId }: Props) => {
   const nft = useFetchNft(tokenId);
-  console.log({ nft });
+  const { data: attachedItems } = useGetAttachedItems(tokenId);
+  const attachSword = useAttachItemToSayan();
+
+  console.log({ attachedItems });
 
   if (!nft) return null;
 
@@ -28,12 +33,16 @@ const NftCard = ({ tokenId }: Props) => {
 
       <ul className={classes.attributes}>
         {nft.attributes.map((attribute) => (
-          <li className={classes.attribute}>
+          <li key={attribute.trait_type} className={classes.attribute}>
             <p className={classes.trait}>{attribute.trait_type}:</p>
             <p className={classes.value}>{attribute.value}</p>
           </li>
         ))}
       </ul>
+
+      <button onClick={() => attachSword.mutateAsync({ tokenId, weaponId: 1 })}>
+        Attach sword
+      </button>
     </div>
   );
 };
