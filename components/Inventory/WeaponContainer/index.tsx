@@ -6,11 +6,12 @@ import classes from "./index.module.scss";
 
 const WeaponContainer = () => {
   const { data: weapons = [] } = useGetInventoryItems();
+
   return (
     <ul className={classes.weaponList}>
-      {weapons.map((weapon) => (
+      {weapons.map((weapon, idx) => (
         <li className={classes.weaponItem} key={weapon.name}>
-          <WeaponCard weapon={weapon} />
+          <WeaponCard weapon={weapon} tokenId={idx + 1} />
         </li>
       ))}
     </ul>

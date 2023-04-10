@@ -28,6 +28,7 @@ contract GameEngine is Initializable, OwnableUpgradeable, ERC1155Holder {
             "Market item not found"
         );
         market.safeTransferFrom(msg.sender, address(this), itemId, 1, "");
+        attachedItems[tokenId].push(itemId);
     }
 
     function getAttachedItemsToSayan(

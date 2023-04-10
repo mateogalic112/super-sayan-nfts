@@ -14,6 +14,7 @@ interface Props {
 const NftCard = ({ tokenId }: Props) => {
   const nft = useFetchNft(tokenId);
   const { data: attachedItems } = useGetAttachedItems(tokenId);
+  console.log({ attachedItems });
 
   const attachSword = useAttachItemToSayan();
 

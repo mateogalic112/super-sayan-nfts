@@ -1,12 +1,21 @@
 import Image from "next/image";
+import { useState } from "react";
 import { Weapon } from "../../../models/Weapon";
+import useBalanceOf from "../hooks/useBalanceOf";
+import useMintMarketItem from "../hooks/useMintMarketItem";
 import classes from "./index.module.scss";
 
 interface Props {
   weapon: Weapon;
+  tokenId: number;
 }
 
-const WeaponCard = ({ weapon }: Props) => {
+const WeaponCard = ({ weapon, tokenId }: Props) => {
+  const { data: balance } = useBalanceOf(tokenId);
+  const [amount, setAmount] = useState("0");
+
+  const mintItem = useMintMarketItem();
+
   return (
     <div className={classes.weaponCard}>
       <h2 className={classes.title}>{weapon.name}</h2>
@@ -25,6 +34,18 @@ const WeaponCard = ({ weapon }: Props) => {
           </li>
         ))}
       </ul>
+
+      <p>Balance: {balance?.toString()}</p>
+
+      <input value={amount} onChange={(e) => setAmount(e.target.value)} />
+      <button
+        disabled={!amount || parseInt(amount) <= 0}
+        onClick={() =>
+          mintItem.mutateAsync({ itemId: tokenId, amount: parseInt(amount) })
+        }
+      >
+        Buy
+      </button>
     </div>
   );
 };
