@@ -10,8 +10,6 @@ const useGetAttachedItems = (tokenId: number) => {
   const getAttachedItems = async () => {
     try {
       const gameEngineContract = getGameEngineContract(safeSigner);
-      console.log({ gameEngineContract });
-
       const items = await gameEngineContract.getAttachedItemsToSayan(tokenId);
       return items;
     } catch (err) {

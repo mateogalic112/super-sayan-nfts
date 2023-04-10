@@ -40,4 +40,15 @@
       }
     }
   }
+
+  .weaponList {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 0;
+  }
+
+  .weapon {
+    list-style: none;
+  }
 }

@@ -4,6 +4,7 @@ import Image from "next/image";
 import useAttachItemToSayan from "../../GameEngine/hooks/useAttachItemToSayan";
 import useGetAttachedItems from "../../GameEngine/hooks/useGetAttachedItems";
 import useFetchNft from "../hooks/useFetchNft";
+import AttachedItem from "./AttachedItem";
 import classes from "./index.module.scss";
 
 interface Props {
@@ -13,9 +14,8 @@ interface Props {
 const NftCard = ({ tokenId }: Props) => {
   const nft = useFetchNft(tokenId);
   const { data: attachedItems } = useGetAttachedItems(tokenId);
-  const attachSword = useAttachItemToSayan();
 
-  console.log({ attachedItems });
+  const attachSword = useAttachItemToSayan();
 
   if (!nft) return null;
 
@@ -36,6 +36,14 @@ const NftCard = ({ tokenId }: Props) => {
           <li key={attribute.trait_type} className={classes.attribute}>
             <p className={classes.trait}>{attribute.trait_type}:</p>
             <p className={classes.value}>{attribute.value}</p>
+          </li>
+        ))}
+      </ul>
+
+      <ul className={classes.weaponList}>
+        {attachedItems.map((item: any) => (
+          <li className={classes.weapon}>
+            <AttachedItem tokenId={item.toNumber()} />
           </li>
         ))}
       </ul>

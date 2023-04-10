@@ -33,6 +33,7 @@ contract SuperSayanNFT is ERC721Enumerable, Ownable {
     ) ERC721("SuperSayanNFT", "SSY") {
         baseUri = _baseUri;
         whitelist = IWhitelist(whitelistContract);
+        _mint(msg.sender, 1);
     }
 
     function startPresale() external onlyOwner {

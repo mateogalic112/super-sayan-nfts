@@ -30,7 +30,7 @@ const useAttachItemToSayan = () => {
       const gameEngineContract = getGameEngineContract(safeSigner);
       await getApprovalFromMarket(safeSigner, gameEngineContract.address);
 
-      const tx = await gameEngineContract.attachItem(tokenId, weaponId);
+      const tx = await gameEngineContract.attachItemToSayan(tokenId, weaponId);
       await tx.wait();
       window.alert("You successfully attached item to Sayan!");
     } catch (err) {

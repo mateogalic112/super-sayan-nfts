@@ -11,4 +11,9 @@ interface IMarket {
     ) external;
 
     function setApprovalForAll(address operator, bool approved) external;
+
+    function balanceOf(
+        address account,
+        uint256 id
+    ) external view returns (uint256);
 }

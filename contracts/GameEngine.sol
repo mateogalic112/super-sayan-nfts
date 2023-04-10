@@ -18,15 +18,14 @@ contract GameEngine is Initializable, OwnableUpgradeable, ERC1155Holder {
         sayans = ISuperSayanNFT(_sayans);
     }
 
-    function attachItemToSayan(uint256 tokenId, uint256 item) public {
-        require(sayans.ownerOf(tokenId) == msg.sender, "Invalid owner");
-        attachedItems[tokenId].push(item);
-    }
-
-    function attachItem(uint256 tokenId, uint256 itemId) public {
+    function attachItemToSayan(uint256 tokenId, uint256 itemId) public {
         require(
             msg.sender == sayans.ownerOf(tokenId),
             "Only the owner can attach items to this NFT"
+        );
+        require(
+            market.balanceOf(msg.sender, itemId) > 0,
+            "Market item not found"
         );
         market.safeTransferFrom(msg.sender, address(this), itemId, 1, "");
     }
