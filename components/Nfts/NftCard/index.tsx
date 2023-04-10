@@ -54,6 +54,9 @@ const NftCard = ({ tokenId }: Props) => {
       <button onClick={() => attachSword.mutateAsync({ tokenId, weaponId: 2 })}>
         Attach shield
       </button>
+      <button onClick={() => attachSword.mutateAsync({ tokenId, weaponId: 3 })}>
+        Attach helmet
+      </button>
     </div>
   );
 };

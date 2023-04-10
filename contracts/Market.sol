@@ -57,6 +57,21 @@ contract Market is ERC1155 {
         return _marketItems[itemId];
     }
 
+    function checkDuplicateItemType(
+        uint256 itemId,
+        uint256[] memory itemsIds
+    ) public view returns (bool) {
+        MarketItem memory itemToCheck = getMarketItem(itemId);
+
+        for (uint i = 0; i < itemsIds.length; i++) {
+            MarketItem memory item = getMarketItem(itemsIds[i]);
+            if (itemToCheck.itemType == item.itemType) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     function uri(
         uint256 _tokenid
     ) public pure override returns (string memory) {

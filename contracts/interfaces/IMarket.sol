@@ -16,4 +16,9 @@ interface IMarket {
         address account,
         uint256 id
     ) external view returns (uint256);
+
+    function checkDuplicateItemType(
+        uint256 itemId,
+        uint256[] memory itemsIds
+    ) external view returns (bool);
 }

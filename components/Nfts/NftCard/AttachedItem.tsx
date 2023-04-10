@@ -9,7 +9,6 @@ interface Props {
 const AttachedItem = ({ tokenId }: Props) => {
   const { data: weapon } = useGetInventoryItem(tokenId);
   const { data: metadata } = useMarketItemMetadata(tokenId);
-  console.log({ metadata });
 
   if (!weapon) return null;
 
