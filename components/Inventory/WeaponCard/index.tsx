@@ -14,11 +14,11 @@ interface Props {
 const WeaponCard = ({ weapon, tokenId }: Props) => {
   const { data: balance } = useBalanceOf(tokenId);
   const { data: metadata } = useMarketItemMetadata(tokenId);
-  console.log({ metadata });
 
   const [amount, setAmount] = useState("0");
-
   const mintItem = useMintMarketItem();
+
+  if (!metadata) return null;
 
   return (
     <div className={classes.weaponCard}>
@@ -45,7 +45,11 @@ const WeaponCard = ({ weapon, tokenId }: Props) => {
       <button
         disabled={!amount || parseInt(amount) <= 0}
         onClick={() =>
-          mintItem.mutateAsync({ itemId: tokenId, amount: parseInt(amount) })
+          mintItem.mutateAsync({
+            itemId: tokenId,
+            amount: parseInt(amount),
+            price: metadata.price,
+          })
         }
       >
         Buy

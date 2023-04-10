@@ -7,15 +7,18 @@ const useMintMarketItem = () => {
   const { signer } = useWeb3Context();
   const safeSigner = signer as ethers.providers.JsonRpcSigner;
 
-  const mintMarketIteam = async (itemId: number, amount: number) => {
+  const mintMarketIteam = async (
+    itemId: number,
+    amount: number,
+    price: number
+  ) => {
     try {
       const signerAddress = await safeSigner.getAddress();
       const marketContract = getMarketContract(safeSigner);
 
-      console.log({ itemId, amount });
-
+      const totalPrice = amount * price;
       const tx = await marketContract.mint(signerAddress, itemId, amount, [], {
-        value: utils.parseEther("0"),
+        value: utils.parseEther(totalPrice.toString()),
       });
       await tx.wait();
       window.alert("You successfully bought item from Marketplace!");
@@ -24,8 +27,16 @@ const useMintMarketItem = () => {
     }
   };
 
-  return useMutation(({ itemId, amount }: { itemId: number; amount: number }) =>
-    mintMarketIteam(itemId, amount)
+  return useMutation(
+    ({
+      itemId,
+      amount,
+      price,
+    }: {
+      itemId: number;
+      amount: number;
+      price: number;
+    }) => mintMarketIteam(itemId, amount, price)
   );
 };
 
