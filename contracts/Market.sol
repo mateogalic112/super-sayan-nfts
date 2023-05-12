@@ -6,7 +6,8 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract Market is ERC1155 {
     enum ItemType {
-        HAND,
+        LEFT_HAND,
+        RIGHT_HAND,
         HEAD,
         BODY,
         LEGS
@@ -29,8 +30,8 @@ contract Market is ERC1155 {
             "https://nftstorage.link/ipfs/bafybeiakrmpdau6mik5z6dcm7szaejb4w6ml5u7minenmfiegv6c7hehwi/{id}.json"
         )
     {
-        _marketItems[SWORD] = MarketItem(0.05 ether, 100, ItemType.HAND);
-        _marketItems[SHIELD] = MarketItem(0.025 ether, 200, ItemType.HAND);
+        _marketItems[SWORD] = MarketItem(0.05 ether, 100, ItemType.RIGHT_HAND);
+        _marketItems[SHIELD] = MarketItem(0.025 ether, 200, ItemType.LEFT_HAND);
         _marketItems[HELMET] = MarketItem(0.0125 ether, 300, ItemType.HEAD);
     }
 

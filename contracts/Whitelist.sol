@@ -2,47 +2,30 @@
 pragma solidity ^0.8.13;
 
 contract Whitelist {
-    // Max number of whitelisted addresses allowed
     uint8 public maxWhitelistedAddresses;
-
-    // Create a mapping of whitelistedAddresses
-    // if an address is whitelisted, we would set it to true, it is false by default for all other addresses.
-    mapping(address => bool) public whitelistedAddresses;
-
-    // numAddressesWhitelisted would be used to keep track of how many addresses have been whitelisted
-    // NOTE: Don't change this variable name, as it will be part of verification
     uint8 public numAddressesWhitelisted;
+
+    mapping(address => bool) public whitelistedAddresses;
 
     event Join(address indexed _address);
 
-    // Setting the Max number of whitelisted addresses
-    // User will put the value at the time of deployment
     constructor(uint8 _maxWhitelistedAddresses) {
-        maxWhitelistedAddresses =  _maxWhitelistedAddresses;
+        maxWhitelistedAddresses = _maxWhitelistedAddresses;
     }
 
-    /**
-        addAddressToWhitelist - This function adds the address of the sender to the
-        whitelist
-     */
     function addAddressToWhitelist() public payable {
-        require (msg.value >= 1 ether, "Not enough funds sent!");
-        // check if the user has already been whitelisted
+        require(msg.value >= 1 ether, "Not enough funds sent!");
         require(!whitelistedAddresses[msg.sender], "Already whitelisted");
-        // check if the numAddressesWhitelisted < maxWhitelistedAddresses, if not then throw an error.
-        require(numAddressesWhitelisted < maxWhitelistedAddresses, "Limit reached");
-        // Add the address which called the function to the whitelistedAddress array
+        require(
+            numAddressesWhitelisted < maxWhitelistedAddresses,
+            "Limit reached"
+        );
         whitelistedAddresses[msg.sender] = true;
-        // Increase the number of whitelisted addresses
         numAddressesWhitelisted += 1;
-        // emit join event
         emit Join(msg.sender);
     }
 
-    // Function to receive Ether. msg.data must be empty
     receive() external payable {}
 
-    // Fallback function is called when msg.data is not empty
     fallback() external payable {}
-
 }

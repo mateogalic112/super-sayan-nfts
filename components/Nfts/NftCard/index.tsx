@@ -14,49 +14,61 @@ interface Props {
 const NftCard = ({ tokenId }: Props) => {
   const nft = useFetchNft(tokenId);
 
-  const { data: attachedItems } = useGetAttachedItems(tokenId);
-  const attachSword = useAttachItemToSayan();
+  const { data: attachedItems = [] } = useGetAttachedItems(tokenId);
+  const attachItem = useAttachItemToSayan();
 
   if (!nft) return null;
 
   return (
     <div className={classes.nftCard}>
-      <h1 className={classes.title}>{nft.name}</h1>
-      <p className={classes.subtitle}>{nft.description}</p>
-      <Image
-        src={nft.image}
-        width={100}
-        height={120}
-        alt={nft.name}
-        className={classes.nftImage}
-      />
+      <div className={classes.cardInfo}>
+        <h1 className={classes.title}>{nft.name}</h1>
+        <p className={classes.subtitle}>{nft.description}</p>
+        <Image
+          src={nft.image}
+          width={100}
+          height={120}
+          alt={nft.name}
+          className={classes.nftImage}
+        />
 
-      <ul className={classes.attributes}>
-        {nft.attributes.map((attribute) => (
-          <li key={attribute.trait_type} className={classes.attribute}>
-            <p className={classes.trait}>{attribute.trait_type}:</p>
-            <p className={classes.value}>{attribute.value}</p>
-          </li>
-        ))}
-      </ul>
+        <ul className={classes.attributes}>
+          {nft.attributes.map((attribute) => (
+            <li key={attribute.trait_type} className={classes.attribute}>
+              <p className={classes.trait}>{attribute.trait_type}:</p>
+              <p className={classes.value}>{attribute.value}</p>
+            </li>
+          ))}
+        </ul>
 
-      <ul className={classes.weaponList}>
-        {attachedItems.map((item: any) => (
-          <li className={classes.weapon}>
-            <AttachedItem tokenId={item.toNumber()} />
-          </li>
-        ))}
-      </ul>
+        <div className={classes.btnContainer}>
+          <button
+            onClick={() => attachItem.mutateAsync({ tokenId, weaponId: 1 })}
+          >
+            Attach sword
+          </button>
+          <button
+            onClick={() => attachItem.mutateAsync({ tokenId, weaponId: 2 })}
+          >
+            Attach shield
+          </button>
+          <button
+            onClick={() => attachItem.mutateAsync({ tokenId, weaponId: 3 })}
+          >
+            Attach helmet
+          </button>
+        </div>
+      </div>
 
-      <button onClick={() => attachSword.mutateAsync({ tokenId, weaponId: 1 })}>
-        Attach sword
-      </button>
-      <button onClick={() => attachSword.mutateAsync({ tokenId, weaponId: 2 })}>
-        Attach shield
-      </button>
-      <button onClick={() => attachSword.mutateAsync({ tokenId, weaponId: 3 })}>
-        Attach helmet
-      </button>
+      <div className={classes.actionContainer}>
+        <ul className={classes.weaponList}>
+          {attachedItems.map((item: any) => (
+            <li className={classes.weapon}>
+              <AttachedItem tokenId={item.toNumber()} />
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

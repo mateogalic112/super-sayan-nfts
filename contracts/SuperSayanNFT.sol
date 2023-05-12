@@ -14,9 +14,10 @@ contract SuperSayanNFT is ERC721Enumerable, Ownable {
     uint88 public presaleTokenPrice = 0.025 ether;
     uint88 public tokenPrice = 0.05 ether;
 
-    bool public _paused;
     bool public presaleStarted;
     uint256 public presaleEndsIn;
+
+    bool public _paused;
 
     modifier onlyWhenNotPaused() {
         require(!_paused, "Contract paused");
@@ -38,7 +39,7 @@ contract SuperSayanNFT is ERC721Enumerable, Ownable {
 
     function startPresale() external onlyOwner {
         presaleStarted = true;
-        presaleEndsIn = block.timestamp + 45 minutes;
+        presaleEndsIn = block.timestamp + 1 hours;
     }
 
     function presaleMint() external payable onlyWhenNotPaused {
@@ -89,9 +90,7 @@ contract SuperSayanNFT is ERC721Enumerable, Ownable {
         return baseUri;
     }
 
-    // Function to receive Ether. msg.data must be empty
     receive() external payable {}
 
-    // Fallback function is called when msg.data is not empty
     fallback() external payable {}
 }
