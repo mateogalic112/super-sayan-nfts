@@ -1,22 +1,20 @@
 "use-client";
 
+import useGetMyNftTokenIds from "../../../api/super-sayan-nft/useGetMyNftTokenIds";
 import NftCard from "../NftCard";
-import useFetchMyNfts from "../hooks/useFetchMyNfts";
 import classes from "./index.module.scss";
 
 const NftContainer = () => {
-  const { data: nfts } = useFetchMyNfts();
+  const { data: nftTokenIds = [] } = useGetMyNftTokenIds();
 
   return (
-    <div>
-      <ul className={classes.nftList}>
-        {nfts?.map((nft) => (
-          <li className={classes.nftItem} key={nft.toNumber()}>
-            <NftCard key={nft.toString()} tokenId={nft.toNumber()} />
-          </li>
-        ))}
-      </ul>
-    </div>
+    <ul className={classes.nftList}>
+      {nftTokenIds.map((tokenId) => (
+        <li className={classes.nftItem} key={tokenId.toNumber()}>
+          <NftCard key={tokenId.toString()} tokenId={tokenId.toNumber()} />
+        </li>
+      ))}
+    </ul>
   );
 };
 

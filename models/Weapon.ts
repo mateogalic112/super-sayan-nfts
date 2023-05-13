@@ -7,7 +7,7 @@ export interface Weapon {
 
 interface Attribute {
   trait_type: string;
-  value: string;
+  value: string | number;
 }
 
 export enum ItemType {

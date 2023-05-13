@@ -1,13 +1,14 @@
 import { BigNumber, ethers } from "ethers";
 import { useQuery } from "react-query";
-import { useWeb3Context } from "../../../context";
-import { getNftContract } from "../../../services/contracts/getNftContract";
+import { useWeb3Context } from "../../context";
+import { getNftContract } from "../../services/contracts/getNftContract";
+import { MY_NFT_TOKEN_IDS } from "./queryKeys";
 
-const useFetchMyNfts = () => {
+const useGetMyNftTokenIds = () => {
   const { signer } = useWeb3Context();
   const safeSigner = signer as ethers.providers.JsonRpcSigner;
 
-  const fetchMyNfts = async () => {
+  const getMyNftTokenIds = async () => {
     try {
       const nftContract = getNftContract(safeSigner);
       const address = await safeSigner.getAddress();
@@ -30,9 +31,9 @@ const useFetchMyNfts = () => {
     }
   };
 
-  return useQuery(["fetch-my-nfts"], fetchMyNfts, {
+  return useQuery([MY_NFT_TOKEN_IDS], getMyNftTokenIds, {
     enabled: !!safeSigner,
   });
 };
 
-export default useFetchMyNfts;
+export default useGetMyNftTokenIds;

@@ -3,6 +3,7 @@ import { ethers } from "ethers";
 import { useQuery } from "react-query";
 import { getMarketContract } from "../../../services/contracts/getMarketContract";
 import { Weapon } from "../../../models/Weapon";
+import { MARKET_ITEM } from "../../../api/market/queryKeys";
 
 const useGetInventoryItem = (tokenId: number) => {
   const { signer } = useWeb3Context();
@@ -20,7 +21,7 @@ const useGetInventoryItem = (tokenId: number) => {
     }
   };
 
-  return useQuery(["get-inventory-item", tokenId], getInventoryItem, {
+  return useQuery([MARKET_ITEM, tokenId], getInventoryItem, {
     enabled: !!tokenId && !!safeSigner,
   });
 };

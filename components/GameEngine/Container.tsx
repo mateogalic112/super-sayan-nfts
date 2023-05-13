@@ -1,4 +1,4 @@
-import useGetAttachedItems from "./hooks/useGetAttachedItems";
+import useGetAttachedItems from "./hooks/useGetAttachedItemTokenIds";
 
 const Container = () => {
   return null;

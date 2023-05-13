@@ -12,7 +12,7 @@ interface Props {
   tokenId: number;
 }
 
-const AttachedItem = ({ tokenId }: Props) => {
+const AttachedItems = ({ tokenId }: Props) => {
   const { data: weapon } = useGetInventoryItem(tokenId);
   const { data: metadata } = useMarketItemMetadata(tokenId);
 
@@ -46,4 +46,4 @@ const AttachedItem = ({ tokenId }: Props) => {
   );
 };
 
-export default AttachedItem;
+export default AttachedItems;
