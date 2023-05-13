@@ -12,7 +12,7 @@ interface Props {
 }
 
 const NftCard = ({ tokenId }: Props) => {
-  const nft = useFetchNft(tokenId);
+  const { data: nft } = useFetchNft(tokenId);
 
   const { data: attachedItems = [] } = useGetAttachedItems(tokenId);
   const attachItem = useAttachItemToSayan();
@@ -66,8 +66,8 @@ const NftCard = ({ tokenId }: Props) => {
       <div className={classes.actionContainer}>
         <ul className={classes.weaponList}>
           {attachedItems.map((item: any) => (
-            <li className={classes.weapon}>
-              <AttachedItem tokenId={item.toNumber()} />
+            <li key={item.toString()} className={classes.weapon}>
+              <AttachedItem key={item.toString()} tokenId={item.toNumber()} />
             </li>
           ))}
         </ul>

@@ -1,20 +1,15 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 import { SuperSayan } from "../../../models/SuperSayan";
 
 const useFetchNft = (tokenId: number) => {
-  const [nft, setNft] = useState<SuperSayan | null>(null);
+  const fetchNft = async (): Promise<SuperSayan> => {
+    const metadataUri = `https://nftstorage.link/ipfs/bafybeibeppt6l46borcfoinfzhavjjsvew7upenttai75yvmfxl3hmp7oy/${tokenId}.json`;
+    const response = await fetch(metadataUri);
+    const rawNft = await response.json();
 
-  useEffect(() => {
-    async function fetchNft() {
-      const metadataUri = `https://nftstorage.link/ipfs/bafybeibeppt6l46borcfoinfzhavjjsvew7upenttai75yvmfxl3hmp7oy/${tokenId}.json`;
-      const response = await fetch(metadataUri);
-      const rawNft = await response.json();
-
-      const parsedNft = { ...rawNft, image: imagePath(rawNft.image) };
-      setNft(parsedNft);
-    }
-    fetchNft();
-  }, [tokenId]);
+    const parsedNft = { ...rawNft, image: imagePath(rawNft.image) };
+    return parsedNft;
+  };
 
   const imagePath = (image: string) => {
     const basePath = "https://nftstorage.link/ipfs";
@@ -22,7 +17,9 @@ const useFetchNft = (tokenId: number) => {
     return `${basePath}/${imagePath}`;
   };
 
-  return nft;
+  return useQuery(["nft", tokenId], fetchNft, {
+    enabled: Number.isInteger(tokenId),
+  });
 };
 
 export default useFetchNft;

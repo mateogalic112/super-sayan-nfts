@@ -12,7 +12,7 @@ const NftContainer = () => {
       <ul className={classes.nftList}>
         {nfts?.map((nft) => (
           <li className={classes.nftItem} key={nft.toNumber()}>
-            <NftCard tokenId={nft.toNumber()} />
+            <NftCard key={nft.toString()} tokenId={nft.toNumber()} />
           </li>
         ))}
       </ul>

@@ -31,7 +31,7 @@ const AttachedItem = ({ tokenId }: Props) => {
           <div className="weapon-metadata-container">
             <ul className="weapon-metadata">
               {parsedAttributes.map((item) => (
-                <li className="weapon-item">
+                <li key={item.label} className="weapon-item">
                   <p className="weapon-item-label">{item.label}</p>
                   <p className="weapon-item-value">{item.value}</p>
                 </li>
