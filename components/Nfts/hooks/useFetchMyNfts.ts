@@ -16,15 +16,14 @@ const useFetchMyNfts = () => {
       // balance is a Big number and thus we would compare it with Big number `zero`
       if (balance === BigNumber.from(0)) {
         return [];
-      } else {
-        // amount keeps track of the number of unclaimed tokens
-        let ids = [];
-        for (let i = 0; i < balance; i++) {
-          const tokenId = await nftContract.tokenOfOwnerByIndex(address, i);
-          ids.push(tokenId);
-        }
-        return ids;
       }
+
+      let ids = [];
+      for (let i = 0; i < balance; i++) {
+        const tokenId = await nftContract.tokenOfOwnerByIndex(address, i);
+        ids.push(tokenId);
+      }
+      return ids;
     } catch (err) {
       console.log({ err });
       return [];

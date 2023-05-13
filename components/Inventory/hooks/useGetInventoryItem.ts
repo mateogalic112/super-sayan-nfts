@@ -8,7 +8,7 @@ const useGetInventoryItem = (tokenId: number) => {
   const { signer } = useWeb3Context();
   const safeSigner = signer as ethers.providers.JsonRpcSigner;
 
-  const getInventoryItem = async () => {
+  const getInventoryItem = async (): Promise<Weapon | undefined> => {
     try {
       const marketContract = getMarketContract(safeSigner);
       const uri = await marketContract.uri(tokenId);

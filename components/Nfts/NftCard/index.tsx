@@ -17,6 +17,9 @@ const NftCard = ({ tokenId }: Props) => {
   const { data: attachedItems = [] } = useGetAttachedItems(tokenId);
   const attachItem = useAttachItemToSayan();
 
+  console.log({ nft });
+  console.log({ attachedItems });
+
   if (!nft) return null;
 
   return (
