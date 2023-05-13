@@ -1,9 +1,9 @@
 import { BigNumber, ethers } from "ethers";
 import { useQueries } from "react-query";
-import { useWeb3Context } from "../../../../context";
-import { SuperSayan } from "../../../../models/SuperSayan";
-import { Weapon } from "../../../../models/Weapon";
-import { getMarketContract } from "../../../../services/contracts/getMarketContract";
+import { useWeb3Context } from "../../../../../context";
+import { SuperSayan } from "../../../../../models/SuperSayan";
+import { Weapon } from "../../../../../models/Weapon";
+import { getMarketContract } from "../../../../../services/contracts/getMarketContract";
 
 interface Args {
   nft: SuperSayan | undefined;
