@@ -22,3 +22,8 @@ export interface WeaponMetadata {
   maxSupply: number;
   itemType: ItemType;
 }
+
+export interface Slot {
+  id: number;
+  item?: Weapon;
+}

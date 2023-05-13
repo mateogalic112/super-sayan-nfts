@@ -30,13 +30,13 @@ const NftCard = ({ tokenId }: Props) => {
           alt={nft.name}
           className={classes.nftImage}
         />
-
-        <Stats nft={nft} attachedItemTokenIds={attachedItemTokenIds} />
-
-        <ActionContainer tokenId={tokenId} />
       </div>
 
+      <Stats nft={nft} attachedItemTokenIds={attachedItemTokenIds} />
+
       <WeaponList attachedItemTokenIds={attachedItemTokenIds} />
+
+      <ActionContainer tokenId={tokenId} />
     </div>
   );
 };

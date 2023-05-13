@@ -1,5 +1,5 @@
 import { BigNumber } from "ethers";
-import AttachedItems from "../AttachedItems";
+import AttachedItem from "../AttachedItem";
 import classes from "../index.module.scss";
 
 interface Props {
@@ -12,7 +12,7 @@ const WeaponList = ({ attachedItemTokenIds }: Props) => {
       <ul className={classes.weaponList}>
         {attachedItemTokenIds.map((item: any) => (
           <li key={item.toString()} className={classes.weapon}>
-            <AttachedItems key={item.toString()} tokenId={item.toNumber()} />
+            <AttachedItem key={item.toString()} tokenId={item.toNumber()} />
           </li>
         ))}
       </ul>
