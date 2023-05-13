@@ -1,9 +1,9 @@
 import { ethers } from "ethers";
 import { useQuery } from "react-query";
-import { useWeb3Context } from "../../context";
-import { Weapon } from "../../models/Weapon";
-import { getMarketItem } from "./useGetMarketItem";
+import { useWeb3Context } from "context";
+import { Weapon } from "models/Weapon";
 import { getMarketContract } from "services/contracts/getMarketContract";
+import { getMarketItem } from "./useGetMarketItem";
 
 const MARKET_ITEMS = [1, 2, 3];
 

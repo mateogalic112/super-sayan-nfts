@@ -1,7 +1,7 @@
 import { BigNumber, ethers } from "ethers";
 import { useQuery } from "react-query";
-import { useWeb3Context } from "../../context";
-import { getNftContract } from "../../services/contracts/getNftContract";
+import { useWeb3Context } from "context";
+import { getNftContract } from "services/contracts/getNftContract";
 import { MY_NFT_TOKEN_IDS } from "./queryKeys";
 
 const useGetMyNftTokenIds = () => {

@@ -1,8 +1,8 @@
 import { ethers } from "ethers";
 import { useQuery } from "react-query";
-import { useWeb3Context } from "../../context";
-import { Weapon } from "../../models/Weapon";
-import { getMarketContract } from "../../services/contracts/getMarketContract";
+import { useWeb3Context } from "context";
+import { Weapon } from "models/Weapon";
+import { getMarketContract } from "services/contracts/getMarketContract";
 import { MARKET_ITEM } from "./queryKeys";
 
 interface Args {

@@ -1,7 +1,7 @@
+import { useWeb3Context } from "context";
 import { BigNumber, ethers } from "ethers";
 import { useQuery } from "react-query";
-import { useWeb3Context } from "../../context";
-import { getGameEngineContract } from "../../services/contracts/getGameEngineContract";
+import { getGameEngineContract } from "services/contracts/getGameEngineContract";
 import { ATTACHED_ITEM_TOKEN_IDS } from "./queryKeys";
 
 const useGetAttachedItemTokenIds = (tokenId: number) => {
