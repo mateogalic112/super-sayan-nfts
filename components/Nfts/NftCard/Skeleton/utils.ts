@@ -1,35 +1,33 @@
 import { ItemType, Weapon } from "models/Weapon";
 
 export const getSkeletonWeapons = (attachedItems: Weapon[]) => {
-  let headWeapon: Weapon | null = null;
-  let leftArmWeapon: Weapon | null = null;
-  let bodyWeapon: Weapon | null = null;
-  let rightArmWeapon: Weapon | null = null;
-  let legsWeapon: Weapon | null = null;
-
-  console.log({ attachedItems });
+  const weaponOptions: { [key: string]: Weapon | null } = {
+    headWeapon: null,
+    leftArmWeapon: null,
+    bodyWeapon: null,
+    rightArmWeapon: null,
+    legsWeapon: null,
+  };
 
   attachedItems.forEach((item) => {
-    console.log({ item });
-
     switch (item.itemType) {
       case ItemType.HEAD:
-        headWeapon = item;
+        weaponOptions.headWeapon = item;
         break;
       case ItemType.LEFT_HAND:
-        leftArmWeapon = item;
+        weaponOptions.leftArmWeapon = item;
         break;
       case ItemType.BODY:
-        bodyWeapon = item;
+        weaponOptions.bodyWeapon = item;
         break;
       case ItemType.RIGHT_HAND:
-        rightArmWeapon = item;
+        weaponOptions.rightArmWeapon = item;
         break;
       case ItemType.LEGS:
-        legsWeapon = item;
+        weaponOptions.legsWeapon = item;
         break;
     }
   });
 
-  return { headWeapon, leftArmWeapon, bodyWeapon, rightArmWeapon, legsWeapon };
+  return weaponOptions;
 };

@@ -22,14 +22,6 @@ const Skeleton = ({ tokenId, attachedItems }: Props) => {
   const { headWeapon, leftArmWeapon, bodyWeapon, rightArmWeapon, legsWeapon } =
     getSkeletonWeapons(attachedItems);
 
-  console.log({
-    headWeapon,
-    leftArmWeapon,
-    bodyWeapon,
-    rightArmWeapon,
-    legsWeapon,
-  });
-
   return (
     <div className={classes.skeleton}>
       <div className={classNames(classes.row, classes.headRow)}>
@@ -110,19 +102,7 @@ const Skeleton = ({ tokenId, attachedItems }: Props) => {
         </div>
       </div>
       <div className={classNames(classes.row, classes.legsRow)}>
-        <div className={classNames(classes.bodyPart, classes.leftLeg)}>
-          <Image
-            src={legIcon}
-            alt="leg"
-            width={32}
-            height={32}
-            className={classes.imagePlaceholder}
-            onClick={() =>
-              attachItem.mutateAsync({ tokenId, weaponId: ItemType.LEGS })
-            }
-          />
-        </div>
-        <div className={classNames(classes.bodyPart, classes.rightLeg)}>
+        <div className={classNames(classes.bodyPart, classes.legs)}>
           <Image
             src={legIcon}
             alt="leg"

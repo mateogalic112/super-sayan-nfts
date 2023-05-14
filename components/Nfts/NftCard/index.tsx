@@ -3,9 +3,9 @@
 import Image from "next/image";
 import useGetAttachedItems from "../../../api/market/useGetAttachedItems";
 import useFetchNft from "../hooks/useFetchNft";
-import classes from "./index.module.scss";
 import Skeleton from "./Skeleton";
 import Stats from "./Stats";
+import classes from "./index.module.scss";
 
 interface Props {
   tokenId: number;
