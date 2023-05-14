@@ -1,24 +1,18 @@
 "use-client";
 
+import { Weapon } from "models/Weapon";
 import Image from "next/image";
 import Tooltip from "rc-tooltip";
-import useGetInventoryItem from "../../../Inventory/hooks/useGetInventoryItem";
-import useMarketItemMetadata from "../../../Inventory/hooks/useMarketItemMetadata";
 import { parseAttributes } from "./utils";
 import "rc-tooltip/assets/bootstrap_white.css";
 import "./index.scss";
 
 interface Props {
-  tokenId: number;
+  weapon: Weapon;
 }
 
-const AttachedItem = ({ tokenId }: Props) => {
-  const { data: weapon } = useGetInventoryItem(tokenId);
-  const { data: metadata } = useMarketItemMetadata(tokenId);
-
-  if (!weapon || !metadata) return null;
-
-  const parsedAttributes = parseAttributes({ weapon, metadata });
+const AttachedItem = ({ weapon }: Props) => {
+  const parsedAttributes = parseAttributes({ weapon });
 
   return (
     <div>
@@ -40,7 +34,7 @@ const AttachedItem = ({ tokenId }: Props) => {
           </div>
         }
       >
-        <Image src={weapon.image} width={60} height={50} alt={weapon.name} />
+        <Image src={weapon.image} width={32} height={32} alt={weapon.name} />
       </Tooltip>
     </div>
   );

@@ -1,15 +1,15 @@
-import { BigNumber } from "ethers";
 import { SuperSayan } from "../../../../models/SuperSayan";
 import useStats from "./hooks/useStats";
 import classes from "../index.module.scss";
+import { Weapon } from "models/Weapon";
 
 interface Props {
   nft: SuperSayan;
-  attachedItemTokenIds: BigNumber[];
+  attachedItems: Weapon[];
 }
 
-const Stats = ({ nft, attachedItemTokenIds }: Props) => {
-  const stats = useStats({ nft, attachedItemTokenIds });
+const Stats = ({ nft, attachedItems }: Props) => {
+  const stats = useStats({ nft, attachedItems });
 
   if (!stats) return null;
 

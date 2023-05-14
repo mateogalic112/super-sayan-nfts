@@ -1,12 +1,12 @@
 "use-client";
 
 import Image from "next/image";
-import useGetAttachedItemTokenIds from "../../../api/market/useGetAttachedItemTokenIds";
+import useGetAttachedItems from "../../../api/market/useGetAttachedItems";
 import useFetchNft from "../hooks/useFetchNft";
 import ActionContainer from "./ActionContainer";
 import classes from "./index.module.scss";
+import Skeleton from "./Skeleton";
 import Stats from "./Stats";
-import WeaponList from "./WeaponList";
 
 interface Props {
   tokenId: number;
@@ -14,9 +14,9 @@ interface Props {
 
 const NftCard = ({ tokenId }: Props) => {
   const { data: nft } = useFetchNft(tokenId);
-  const { data: attachedItemTokenIds } = useGetAttachedItemTokenIds(tokenId);
+  const { data: attachedItems } = useGetAttachedItems(tokenId);
 
-  if (!nft || !attachedItemTokenIds) return null;
+  if (!nft || !attachedItems) return null;
 
   return (
     <div className={classes.nftCard}>
@@ -32,9 +32,9 @@ const NftCard = ({ tokenId }: Props) => {
         />
       </div>
 
-      <Stats nft={nft} attachedItemTokenIds={attachedItemTokenIds} />
+      <Stats nft={nft} attachedItems={attachedItems} />
 
-      <WeaponList attachedItemTokenIds={attachedItemTokenIds} />
+      <Skeleton tokenId={tokenId} attachedItems={attachedItems} />
 
       <ActionContainer tokenId={tokenId} />
     </div>

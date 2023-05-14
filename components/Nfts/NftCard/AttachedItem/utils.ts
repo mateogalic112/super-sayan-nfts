@@ -1,8 +1,7 @@
-import { Weapon, WeaponMetadata } from "../../../../models/Weapon";
+import { Weapon } from "models/Weapon";
 
 interface Args {
   weapon: Weapon;
-  metadata: WeaponMetadata;
 }
 
 export interface ParsedAttribute {
@@ -10,10 +9,7 @@ export interface ParsedAttribute {
   value: string | number;
 }
 
-export const parseAttributes = ({
-  weapon,
-  metadata,
-}: Args): ParsedAttribute[] => {
+export const parseAttributes = ({ weapon }: Args): ParsedAttribute[] => {
   const parsedWeaponAttributes: ParsedAttribute[] = weapon.attributes.map(
     (attribute) => ({
       label: attribute.trait_type,
@@ -22,8 +18,8 @@ export const parseAttributes = ({
   );
 
   const parsedMetadata: ParsedAttribute[] = [
-    { label: "Max supply", value: metadata.maxSupply },
-    { label: "Price", value: `${metadata.price} ETH` },
+    { label: "Max supply", value: weapon.maxSupply },
+    { label: "Price", value: `${weapon.price} ETH` },
   ];
 
   return [...parsedWeaponAttributes, ...parsedMetadata];

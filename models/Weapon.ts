@@ -1,9 +1,17 @@
-export interface Weapon {
+export interface BaseWeapon {
   name: string;
   description: string;
   image: string;
-  attributes: Attribute[];
+  attributes: { trait_type: string; value: string | number }[];
 }
+
+export interface WeaponMetadata {
+  price: number;
+  maxSupply: number;
+  itemType: ItemType;
+}
+
+export type Weapon = BaseWeapon & WeaponMetadata;
 
 interface Attribute {
   trait_type: string;
@@ -11,7 +19,8 @@ interface Attribute {
 }
 
 export enum ItemType {
-  HAND,
+  LEFT_HAND,
+  RIGHT_HAND,
   HEAD,
   BODY,
   LEGS,

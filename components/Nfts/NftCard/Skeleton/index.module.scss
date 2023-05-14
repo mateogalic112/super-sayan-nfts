@@ -1,0 +1,23 @@
+.skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 32px;
+
+    .bodyPart {
+      border: 1px solid black;
+      padding: 8px;
+      background-color: blanchedalmond;
+
+      .imagePlaceholder {
+        cursor: pointer;
+        opacity: 0.2;
+      }
+    }
+  }
+}

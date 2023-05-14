@@ -1,7 +1,7 @@
-import { ethers } from "ethers";
+import { ethers, utils } from "ethers";
 import { useQuery } from "react-query";
 import { useWeb3Context } from "context";
-import { Weapon } from "models/Weapon";
+import { BaseWeapon, ItemType, Weapon, WeaponMetadata } from "models/Weapon";
 import { getMarketContract } from "services/contracts/getMarketContract";
 import { MARKET_ITEM } from "./queryKeys";
 
@@ -14,10 +14,16 @@ export const getMarketItem = async ({
   marketContract,
   tokenId,
 }: Args): Promise<Weapon> => {
-  const uri = await marketContract.uri(tokenId);
-  const res = await fetch(uri);
-  const weapon = (await res.json()) as unknown as Weapon;
-  return { ...weapon, image: imagePath(weapon.image) };
+  const [baseWeapon, weaponMetadata] = await Promise.all([
+    getBaseWeapon({ marketContract, tokenId }),
+    getWeaponMetadata({ marketContract, tokenId }),
+  ]);
+
+  return {
+    ...baseWeapon,
+    ...weaponMetadata,
+    image: imagePath(baseWeapon.image),
+  } as Weapon;
 };
 
 export const useGetMarketItem = (tokenId: number) => {
@@ -32,6 +38,27 @@ export const useGetMarketItem = (tokenId: number) => {
       enabled: !!tokenId && !!safeSigner,
     }
   );
+};
+
+const getBaseWeapon = async ({ marketContract, tokenId }: Args) => {
+  const uri = await marketContract.uri(tokenId);
+  const res = await fetch(uri);
+  const baseWeapon = (await res.json()) as unknown as BaseWeapon;
+  return baseWeapon;
+};
+
+const getWeaponMetadata = async ({ marketContract, tokenId }: Args) => {
+  const weaponmMetadata = (await marketContract.getMarketItem(
+    tokenId
+  )) as WeaponMetadata;
+
+  const parsedMetadata = {
+    price: +utils.formatEther(weaponmMetadata.price),
+    maxSupply: +weaponmMetadata.maxSupply,
+    itemType: weaponmMetadata.itemType as ItemType,
+  };
+
+  return parsedMetadata;
 };
 
 const imagePath = (image: string) => {
