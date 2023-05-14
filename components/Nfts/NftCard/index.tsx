@@ -3,7 +3,6 @@
 import Image from "next/image";
 import useGetAttachedItems from "../../../api/market/useGetAttachedItems";
 import useFetchNft from "../hooks/useFetchNft";
-import ActionContainer from "./ActionContainer";
 import classes from "./index.module.scss";
 import Skeleton from "./Skeleton";
 import Stats from "./Stats";
@@ -35,8 +34,6 @@ const NftCard = ({ tokenId }: Props) => {
       <Stats nft={nft} attachedItems={attachedItems} />
 
       <Skeleton tokenId={tokenId} attachedItems={attachedItems} />
-
-      <ActionContainer tokenId={tokenId} />
     </div>
   );
 };
