@@ -10,7 +10,7 @@ const WeaponList = ({ attachedItemTokenIds }: Props) => {
   return (
     <div className={classes.actionContainer}>
       <ul className={classes.weaponList}>
-        {attachedItemTokenIds.map((item: any) => (
+        {attachedItemTokenIds.map((item: BigNumber) => (
           <li key={item.toString()} className={classes.weapon}>
             <AttachedItem key={item.toString()} tokenId={item.toNumber()} />
           </li>
