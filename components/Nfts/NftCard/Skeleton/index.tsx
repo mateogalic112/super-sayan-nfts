@@ -9,6 +9,7 @@ import { ItemType, Weapon } from "models/Weapon";
 import useAttachItemToSayan from "components/GameEngine/hooks/useAttachItemToSayan";
 import AttachedItem from "../AttachedItem";
 import { getSkeletonWeapons } from "./utils";
+import { marketItemIds } from "constants/web3";
 
 interface Props {
   tokenId: number;
@@ -20,6 +21,14 @@ const Skeleton = ({ tokenId, attachedItems }: Props) => {
 
   const { headWeapon, leftArmWeapon, bodyWeapon, rightArmWeapon, legsWeapon } =
     getSkeletonWeapons(attachedItems);
+
+  console.log({
+    headWeapon,
+    leftArmWeapon,
+    bodyWeapon,
+    rightArmWeapon,
+    legsWeapon,
+  });
 
   return (
     <div className={classes.skeleton}>
@@ -34,7 +43,10 @@ const Skeleton = ({ tokenId, attachedItems }: Props) => {
               width={32}
               height={32}
               onClick={() =>
-                attachItem.mutateAsync({ tokenId, weaponId: ItemType.HEAD })
+                attachItem.mutateAsync({
+                  tokenId,
+                  weaponId: marketItemIds.HELMET,
+                })
               }
               className={classes.imagePlaceholder}
             />
@@ -55,7 +67,7 @@ const Skeleton = ({ tokenId, attachedItems }: Props) => {
               onClick={() =>
                 attachItem.mutateAsync({
                   tokenId,
-                  weaponId: ItemType.LEFT_HAND,
+                  weaponId: marketItemIds.SHIELD,
                 })
               }
             />
@@ -90,7 +102,7 @@ const Skeleton = ({ tokenId, attachedItems }: Props) => {
               onClick={() =>
                 attachItem.mutateAsync({
                   tokenId,
-                  weaponId: ItemType.RIGHT_HAND,
+                  weaponId: marketItemIds.SWORD,
                 })
               }
             />

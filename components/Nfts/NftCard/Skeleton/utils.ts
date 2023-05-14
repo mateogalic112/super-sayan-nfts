@@ -7,7 +7,11 @@ export const getSkeletonWeapons = (attachedItems: Weapon[]) => {
   let rightArmWeapon: Weapon | null = null;
   let legsWeapon: Weapon | null = null;
 
+  console.log({ attachedItems });
+
   attachedItems.forEach((item) => {
+    console.log({ item });
+
     switch (item.itemType) {
       case ItemType.HEAD:
         headWeapon = item;

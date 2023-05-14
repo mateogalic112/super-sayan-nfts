@@ -1,9 +1,9 @@
 import { ethers } from "ethers";
-import { useWeb3Context } from "../../../context";
-import web3Constants from "../../../constants/web3";
-import Market from "../../../artifacts/contracts/Market.sol/Market.json";
 import { useQuery } from "react-query";
-import { Weapon } from "../../../models/Weapon";
+import { contractAddresses } from "constants/web3";
+import { Weapon } from "models/Weapon";
+import { useWeb3Context } from "context";
+import Market from "artifacts/contracts/Market.sol/Market.json";
 
 const MARKET_ITEMS = [1, 2, 3];
 
@@ -32,7 +32,7 @@ export const useGetInventoryItems = () => {
   const safeSigner = signer as ethers.providers.JsonRpcSigner;
 
   const marketContract = new ethers.Contract(
-    web3Constants.MARKET_CONTRACT_ADDRESS,
+    contractAddresses.MARKET_CONTRACT_ADDRESS,
     Market.abi,
     safeSigner
   );
