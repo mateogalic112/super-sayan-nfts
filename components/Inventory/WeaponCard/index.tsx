@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useState } from "react";
-import { Weapon } from "../../../models/Weapon";
+import { Weapon } from "models/Weapon";
 import useBalanceOf from "../hooks/useBalanceOf";
 import useMarketItemMetadata from "../hooks/useMarketItemMetadata";
 import useMintMarketItem from "../hooks/useMintMarketItem";

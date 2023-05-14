@@ -1,5 +1,5 @@
-import JoinWhitelistButton from "../../components/Whitelist/JoinWhitelistButton";
-import JoinWhitelistContainer from "../../components/Whitelist/JoinWhitelistContainer";
+import JoinWhitelistButton from "components/Whitelist/JoinWhitelistButton";
+import JoinWhitelistContainer from "components/Whitelist/JoinWhitelistContainer";
 
 export default function Whitelist() {
   return (

@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 import { useMutation } from "react-query";
-import { useWeb3Context } from "../../../context";
-import { getTokenContract } from "../../../services/contracts/getTokenContract";
+import { useWeb3Context } from "context";
+import { getTokenContract } from "services/contracts/getTokenContract";
 
 const useWithdrawCoins = () => {
   const { signer } = useWeb3Context();

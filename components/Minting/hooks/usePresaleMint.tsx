@@ -1,6 +1,6 @@
-import { useWeb3Context } from "../../../context";
+import { useWeb3Context } from "context";
 import { ethers } from "ethers";
-import { getNftContract } from "../../../services/contracts/getNftContract";
+import { getNftContract } from "services/contracts/getNftContract";
 import { useMutation, useQueryClient } from "react-query";
 
 const usePresaleMint = () => {

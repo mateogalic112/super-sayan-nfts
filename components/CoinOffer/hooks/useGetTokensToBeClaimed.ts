@@ -1,8 +1,8 @@
 import { BigNumber, ethers } from "ethers";
 import { useQuery } from "react-query";
-import { useWeb3Context } from "../../../context";
-import { getNftContract } from "../../../services/contracts/getNftContract";
-import { getTokenContract } from "../../../services/contracts/getTokenContract";
+import { useWeb3Context } from "context";
+import { getNftContract } from "services/contracts/getNftContract";
+import { getTokenContract } from "services/contracts/getTokenContract";
 
 const useGetTokensToBeClaimed = () => {
   const { signer } = useWeb3Context();

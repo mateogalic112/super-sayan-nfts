@@ -1,7 +1,7 @@
-import { useWeb3Context } from "../../../context";
+import { useWeb3Context } from "context";
 import { ethers, utils } from "ethers";
 import { useMutation } from "react-query";
-import { getMarketContract } from "../../../services/contracts/getMarketContract";
+import { getMarketContract } from "services/contracts/getMarketContract";
 
 const useMintMarketItem = () => {
   const { signer } = useWeb3Context();

@@ -1,7 +1,7 @@
 "use client";
 
-import useCheckOwner from "../../components/Minting/hooks/useCheckOwner";
-import useStartPresale from "../../components/Minting/hooks/useStartPresale";
+import useCheckOwner from "components/Minting/hooks/useCheckOwner";
+import useStartPresale from "components/Minting/hooks/useStartPresale";
 
 const InactivePresale = () => {
   const startPresale = useStartPresale();

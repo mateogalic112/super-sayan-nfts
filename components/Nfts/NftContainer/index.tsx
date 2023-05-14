@@ -1,6 +1,6 @@
 "use-client";
 
-import useGetMyNftTokenIds from "../../../api/super-sayan-nft/useGetMyNftTokenIds";
+import useGetMyNftTokenIds from "api/super-sayan-nft/useGetMyNftTokenIds";
 import NftCard from "../NftCard";
 import classes from "./index.module.scss";
 

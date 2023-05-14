@@ -2,11 +2,11 @@
 
 import { BigNumber } from "ethers";
 import { useState } from "react";
-import PresaleInterval from "../../components/Minting/PresaleInterval";
-import useCheckPresaleEndsIn from "../../components/Minting/hooks/useCheckPresaleEndsIn";
-import useCheckPresaleStarted from "../../components/Minting/hooks/useCheckPresaleStarted";
-import usePresaleMint from "../../components/Minting/hooks/usePresaleMint";
-import usePublicMint from "../../components/Minting/hooks/usePublicMint";
+import PresaleInterval from "components/Minting/PresaleInterval";
+import useCheckPresaleEndsIn from "components/Minting/hooks/useCheckPresaleEndsIn";
+import useCheckPresaleStarted from "components/Minting/hooks/useCheckPresaleStarted";
+import usePresaleMint from "components/Minting/hooks/usePresaleMint";
+import usePublicMint from "components/Minting/hooks/usePublicMint";
 
 const ActivePresale = () => {
   const presaleMint = usePresaleMint();

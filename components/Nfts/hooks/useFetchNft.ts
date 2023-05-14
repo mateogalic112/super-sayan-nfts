@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { SuperSayan } from "../../../models/SuperSayan";
+import { SuperSayan } from "models/SuperSayan";
 
 const useFetchNft = (tokenId: number) => {
   const fetchNft = async (): Promise<SuperSayan> => {

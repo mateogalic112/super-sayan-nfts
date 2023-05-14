@@ -1,7 +1,7 @@
 import { BigNumber, ethers } from "ethers";
 import { useQuery } from "react-query";
-import { useWeb3Context } from "../../../context";
-import { getTokenContract } from "../../../services/contracts/getTokenContract";
+import { useWeb3Context } from "context";
+import { getTokenContract } from "services/contracts/getTokenContract";
 
 const useGetTotalTokensMinted = () => {
   const { signer } = useWeb3Context();

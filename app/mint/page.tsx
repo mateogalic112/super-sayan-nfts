@@ -1,11 +1,11 @@
 "use client";
 
-import useCheckOwner from "../../components/Minting/hooks/useCheckOwner";
-import useCheckPresaleStarted from "../../components/Minting/hooks/useCheckPresaleStarted";
-import useGetNftContractBalance from "../../components/Minting/hooks/useGetNftContractBalance";
-import useTokenIdsMinted from "../../components/Minting/hooks/useTokenIdsMinted";
-import ActivePresale from "../../components/Minting/ActivePresale";
-import InactivePresale from "../../components/Minting/InactivePresale";
+import useCheckOwner from "components/Minting/hooks/useCheckOwner";
+import useCheckPresaleStarted from "components/Minting/hooks/useCheckPresaleStarted";
+import useGetNftContractBalance from "components/Minting/hooks/useGetNftContractBalance";
+import useTokenIdsMinted from "components/Minting/hooks/useTokenIdsMinted";
+import ActivePresale from "components/Minting/ActivePresale";
+import InactivePresale from "components/Minting/InactivePresale";
 
 const MintPage = () => {
   const { data: isOwner } = useCheckOwner();

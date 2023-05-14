@@ -1,7 +1,7 @@
-import { useWeb3Context } from "../../../context";
+import { useWeb3Context } from "context";
 import { ethers } from "ethers";
 import { useMutation, useQueryClient } from "react-query";
-import { getWhitelistContract } from "../../../services/contracts/getWhitelistContract";
+import { getWhitelistContract } from "services/contracts/getWhitelistContract";
 
 const useJoinWhitelist = () => {
   const { signer } = useWeb3Context();

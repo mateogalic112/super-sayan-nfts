@@ -1,7 +1,7 @@
 "use-client";
 
 import Image from "next/image";
-import useGetAttachedItems from "../../../api/market/useGetAttachedItems";
+import useGetAttachedItems from "api/market/useGetAttachedItems";
 import useFetchNft from "../hooks/useFetchNft";
 import Skeleton from "./Skeleton";
 import Stats from "./Stats";

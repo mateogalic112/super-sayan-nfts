@@ -1,4 +1,4 @@
-import { SuperSayan } from "../../../../models/SuperSayan";
+import { SuperSayan } from "../models/SuperSayan";
 import useStats from "./hooks/useStats";
 import classes from "../index.module.scss";
 import { Weapon } from "models/Weapon";

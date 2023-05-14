@@ -1,8 +1,8 @@
-import { useWeb3Context } from "../../../context";
+import { useWeb3Context } from "context";
 import { ethers } from "ethers";
 import { useMutation, useQueryClient } from "react-query";
-import { getGameEngineContract } from "../../../services/contracts/getGameEngineContract";
-import { getMarketContract } from "../../../services/contracts/getMarketContract";
+import { getGameEngineContract } from "services/contracts/getGameEngineContract";
+import { getMarketContract } from "services/contracts/getMarketContract";
 
 const getApprovalFromMarket = async (
   safeSigner: ethers.providers.JsonRpcSigner,

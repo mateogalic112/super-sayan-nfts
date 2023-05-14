@@ -1,7 +1,7 @@
 import { ethers, utils } from "ethers";
 import { useMutation, useQueryClient } from "react-query";
-import { useWeb3Context } from "../../../context";
-import { getTokenContract } from "../../../services/contracts/getTokenContract";
+import { useWeb3Context } from "context";
+import { getTokenContract } from "services/contracts/getTokenContract";
 
 const useMintSuperSayanToken = () => {
   const queryClient = useQueryClient();

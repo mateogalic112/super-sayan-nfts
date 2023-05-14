@@ -1,7 +1,7 @@
-import { useWeb3Context } from "../../../context";
+import { useWeb3Context } from "context";
 import { ethers } from "ethers";
 import { useQuery } from "react-query";
-import { getMarketContract } from "../../../services/contracts/getMarketContract";
+import { getMarketContract } from "services/contracts/getMarketContract";
 
 const useBalanceOf = (tokenId: number) => {
   const { signer } = useWeb3Context();

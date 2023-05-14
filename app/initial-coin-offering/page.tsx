@@ -1,4 +1,4 @@
-import CoinOfferContainer from "../../components/CoinOffer/CoinOfferContainer";
+import CoinOfferContainer from "components/CoinOffer/CoinOfferContainer";
 
 export default function InitialCoinOffering() {
   return (
